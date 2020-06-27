@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
  * - tile indexer used correctly
  * - tile indices are now determined before being drawn
  * - rivers and road have different rules for vicinity flags
- * */
+ */
 
 public class NoiseBasedTiledMapGenerator : MonoBehaviour {
     public Tilemap map;
@@ -56,9 +56,7 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
     }
 
     private Dictionary<Vector2Int, TileType> terrainTileTypeMap;
-    private Dictionary<Vector2Int, int> terrainTileIndexMap;
     private Dictionary<Vector2Int, TileType> featureTileTypeMap;
-    private Dictionary<Vector2Int, int> featureTileIndexMap;
 
     private Dictionary<TileType, TileSet> tileSets;
 
@@ -78,8 +76,6 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
         generateRivers(seed, dimensions);
         //generate town positions
         generateTowns(seed, dimensions, townCount/*, minTownDistance*/);
-        // generate tile ids
-      //  updateMap();
         // set tiles
         setTiles();
         //set up cam 
@@ -88,9 +84,7 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
 
     private void Awake() {
         terrainTileTypeMap = new Dictionary<Vector2Int, TileType>();
-        terrainTileIndexMap = new Dictionary<Vector2Int, int>();
         featureTileTypeMap = new Dictionary<Vector2Int, TileType>();
-        featureTileIndexMap = new Dictionary<Vector2Int, int>();
         tileSets = new Dictionary<TileType, TileSet>();
     }
 
@@ -130,8 +124,6 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
             for (int y = 0; y < dimensions.y; y++) {
                 Vector2Int key = new Vector2Int(x, y);
                 terrainTileTypeMap.Add(key, TileType.GRASS);
-                //set index of def
-                terrainTileIndexMap[new Vector2Int(x,y)] = 0;
 
                 float terrain_noise = Mathf.PerlinNoise(x / terrainNoiseScale + terrainOffset, y / terrainNoiseScale + terrainOffset);
                 if (terrain_noise < waterTiles.heightLevel) { 
@@ -190,7 +182,6 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
             }
             // set tile
             featureTileTypeMap.Add(townPos, TileType.TOWN);
-            featureTileIndexMap.Add(townPos, 0);
             Vector2Int hori = Vector2Int.right;
             Vector2Int vert = Vector2Int.down;
 
@@ -202,27 +193,10 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
                 vert = Vector2Int.up;
 
             featureTileTypeMap.Add(townPos + hori,          TileType.TOWN);
-            featureTileIndexMap.Add(townPos + hori, 0);
             featureTileTypeMap.Add(townPos + vert,          TileType.TOWN);
-            featureTileIndexMap.Add(townPos + vert, 0);
             featureTileTypeMap.Add(townPos + hori + vert,   TileType.TOWN);
-            featureTileIndexMap.Add(townPos + hori + vert, 0);
         }
     }
-
-    /*//TODO: move to set tiles. Index is irrelevant for all other functions
-    public void updateMap() {
-        Debug.Log("updateMap");
-        P.start("Update Map");
-        for (int x = 0; x < dimensions.x; x++) {
-            Vector2Int position = new Vector2Int(0, 0);
-            for (int y = 0; y < dimensions.y; y++) {
-                position.x = x;
-                position.y = y;
-            }
-        }
-        P.end();
-    }*/
 
     private void setTiles() {
         Debug.Log("set tiles");
