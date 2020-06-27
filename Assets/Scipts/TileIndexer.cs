@@ -1,10 +1,5 @@
 ﻿public class TileIndexer {
     public virtual int index(int vicinityFlag) {
-        // Flags:
-        // _._|__1___|_._
-        // _8_|_tile_|_2_
-        // _._|__4___|_._
-
         return 0;
     }
 }

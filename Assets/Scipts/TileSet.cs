@@ -24,10 +24,14 @@ public class TileSet {
             t.name = s.name;
             tiles.Add(t);
         }
-
     }
 
-    public Tile getTile(int id) {    return tiles[Mathf.Clamp(id,0,tiles.Count)];   }
+    public Tile getTile(int id) {    return tiles[Mathf.Clamp(id,0,tiles.Count-1)];   }
+
+
+    public int getTileIndex(int vicinityFlag){
+        return indexer.index(vicinityFlag);
+    }
 
     public Tile getIndexedTile(int vicinityFlag) {
         return tiles[indexer.index(vicinityFlag)];

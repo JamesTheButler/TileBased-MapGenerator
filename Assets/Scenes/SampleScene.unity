@@ -198,14 +198,6 @@ MonoBehaviour:
   grassTiles:
     sprites:
     - {fileID: 21300036, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300038, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300040, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300042, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300044, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300046, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300048, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300050, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
-    - {fileID: 21300052, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
     heightLevel: 0
   mountainTiles:
     sprites:
@@ -242,6 +234,10 @@ MonoBehaviour:
     - {fileID: 21300048, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
     - {fileID: 21300050, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
     - {fileID: 21300052, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
+    - {fileID: 21300054, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
+    - {fileID: 21300056, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
+    - {fileID: 21300058, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
+    - {fileID: 21300060, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
     heightLevel: 0.6
   roadTiles:
     sprites:
@@ -273,8 +269,8 @@ MonoBehaviour:
   dimensions: {x: 150, y: 150}
   minRivers: 0
   maxRivers: 0
-  townCount: 15
-  useSeed: 0
+  townCount: 10
+  useSeed: 1
   seed: 552
   useSegmentation: 1
   profile: 0
