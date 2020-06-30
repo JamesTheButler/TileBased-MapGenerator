@@ -1,17 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
 /* **** THIS IS WHERE I LEFT OF YESTERDAY ****
- * - tile indexer used correctly
- * - tile indices are now determined before being drawn
- * - rivers and road have different rules for vicinity flags
+ * RECENT CHANGES
+ * - rivers are implemented and have semi-random flow. Needs some work for better curves
+ * TODO:s
+ * - adjust random curves of rivers
+ * - features can get rendered below terrain (?)
+ * - Rivers flowing next to each other have tiling issues (have list of rivers and tile them individually)
+ * - need end and start tiles.
  */
+public enum TileType {
+    NONE,
+    GRASS,
+    FOREST,
+    MOUNTAIN,
+    WATER,
+    TOWN,
+    RIVER,
+    ROAD,
+}
+
 
 public class NoiseBasedTiledMapGenerator : MonoBehaviour {
     public Tilemap map;
-    //public List<TileSet> tileSets;
 
     public TileSet grassTiles;
     public TileSet mountainTiles;
@@ -24,19 +39,17 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
 
     public float terrainNoiseScale;
     public float forestNoiseScale;
+    public int cleanUpIterations;
+    public int cleanUpCutOffNumber;
 
     public CameraMovement camMover;
-        
-    public Vector2Int dimensions;
-    private int baseDepth = 0;
-    private int terrainDepth = 1;
-    private int featureDepth = 2;
 
-    public int minRivers;
-    public int maxRivers;
+    public Vector2Int dimensions;
+
+    public int riverCount;
 
     public int townCount;
-    
+
     public bool useSeed = false;
     public int seed = 0;
 
@@ -44,21 +57,18 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
 
     public bool profile;
 
-    public enum TileType {
-        NONE,
-        GRASS,
-        FOREST,
-        MOUNTAIN,
-        WATER,
-        TOWN,
-        RIVER,
-        ROAD,
-    }
+    private int baseDepth = 0;
+    private int terrainDepth = 1;
+    private int featureDepth = 20;
+
 
     private Dictionary<Vector2Int, TileType> terrainTileTypeMap;
     private Dictionary<Vector2Int, TileType> featureTileTypeMap;
 
     private Dictionary<TileType, TileSet> tileSets;
+
+    private List<Vector2Int> mountainTileList;
+    private List<Vector2Int> waterTileList;
 
     private void Start() {
         P.setState(profile);
@@ -68,24 +78,30 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
         // make noise
         if (!useSeed)
             generateSeed();
-        Random.InitState(seed);
+        UnityEngine.Random.InitState(seed);
 
         Debug.Log("Map Seed: " + seed);
-        //generate 
+        // generate 
         generateMap(seed);
+        // cleanup pass
+        cleanUpTerrain(cleanUpIterations);
+        // generate rivers
         generateRivers(seed, dimensions);
-        //generate town positions
+        // generate town positions
         generateTowns(seed, dimensions, townCount/*, minTownDistance*/);
         // set tiles
         setTiles();
-        //set up cam 
+        // set up cam 
         camMover.setMap(dimensions);
     }
+
 
     private void Awake() {
         terrainTileTypeMap = new Dictionary<Vector2Int, TileType>();
         featureTileTypeMap = new Dictionary<Vector2Int, TileType>();
         tileSets = new Dictionary<TileType, TileSet>();
+        mountainTileList = new List<Vector2Int>();
+        waterTileList = new List<Vector2Int>();
     }
 
     private void generateSeed() {
@@ -94,16 +110,13 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
 
     protected void initTiles() {
         // setup tile indexers
-        TileIndexer t = new TileIndexer();
-        PathingTileIndexer pt = new PathingTileIndexer();
-        TerrainTileIndexer tt = new TerrainTileIndexer();
-        grassTiles.init(t);
-        waterTiles.init(tt);
-        mountainTiles.init(tt);
-        forestTiles.init(tt);
-        townTiles.init(t);
-        roadTiles.init(pt);
-        riverTiles.init(pt);
+        grassTiles.init(new RandomTileIndexer());
+        waterTiles.init(new TerrainTileIndexer());
+        mountainTiles.init(new TerrainTileIndexer());
+        forestTiles.init(new RandomTileIndexer());
+        townTiles.init(new TileIndexer());
+        roadTiles.init(new PathingTileIndexer());
+        riverTiles.init(new PathingTileIndexer());
         //add sets to look up table
         tileSets.Add(TileType.GRASS, grassTiles);
         tileSets.Add(TileType.FOREST, forestTiles);
@@ -122,31 +135,83 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
         int terrainOffset = seed;
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
-                Vector2Int key = new Vector2Int(x, y);
-                terrainTileTypeMap.Add(key, TileType.GRASS);
+                Vector2Int pos = new Vector2Int(x, y);
+                // terrainTileTypeMap.Add(key, TileType.GRASS);
 
                 float terrain_noise = Mathf.PerlinNoise(x / terrainNoiseScale + terrainOffset, y / terrainNoiseScale + terrainOffset);
-                if (terrain_noise < waterTiles.heightLevel) { 
-                    terrainTileTypeMap[key] = TileType.WATER;
-                }else if (terrain_noise > mountainTiles.heightLevel) { 
-                    terrainTileTypeMap[key] = TileType.MOUNTAIN;
-                } else { 
+                if (terrain_noise < waterTiles.heightLevel) {
+                    terrainTileTypeMap[pos] = TileType.WATER;
+                    waterTileList.Add(pos);
+                } else if (terrain_noise > mountainTiles.heightLevel) {
+                    terrainTileTypeMap[pos] = TileType.MOUNTAIN;
+                    mountainTileList.Add(pos);
+                } else {
                     float red_noise = Mathf.PerlinNoise(x / forestNoiseScale + forestOffset, y / forestNoiseScale + forestOffset);
                     if (red_noise > forestTiles.heightLevel)
-                        terrainTileTypeMap[key] = TileType.FOREST;
+                        terrainTileTypeMap[pos] = TileType.FOREST;
                 }
             }
         }
         P.end();
     }
 
+    private bool isDiagonal(Vector2Int v) { return v.x != 0 && v.y != 0; }
+
     private void generateRivers(int seed, Vector2Int dimensions) {
-        int riverCount = Random.Range(minRivers, maxRivers);
+        P.start("generateRiver");
+        Debug.Log("generateRiver");
+        for (int i = 0; i < riverCount; i++) {
+            Vector2Int pos = mountainTileList[UnityEngine.Random.Range(0, mountainTileList.Count)];
+
+            featureTileTypeMap[pos] = TileType.RIVER;
+            bool hasReachedEnd = false;
+            Vector2Int direction = new Vector2Int(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
+            //Vector2Int direction = new Vector2Int(-1, 1);
+            Debug.Log("general direction " + direction);
+
+            while (!hasReachedEnd) {
+                Vector2Int tempDir = direction;
+                if (isDiagonal(tempDir)) {
+                   /* if (UnityEngine.Random.value > 0.5) {
+                        if (UnityEngine.Random.value > 0.5)
+                            direction.x = 0;
+                    } else {
+                        if (UnityEngine.Random.value > 0.5)
+                            direction.y = 0;
+                    }*/
+                } else {
+                    tempDir.x = UnityEngine.Random.Range(-1, 1);
+                }
+                Debug.Log("tile direction " + tempDir);
+                // direction.y = UnityEngine.Random.Range(-1, 1);
+                pos += tempDir;
+                //fix curves (and connect corners for proper tiling)
+                if (isDiagonal(tempDir)) { 
+                    if (UnityEngine.Random.value > 0.5)
+                        featureTileTypeMap[pos - new Vector2Int(tempDir.x, 0)] = TileType.RIVER;
+                    else
+                        featureTileTypeMap[pos - new Vector2Int(0, tempDir.y)] = TileType.RIVER;
+                }
+                featureTileTypeMap[pos] = TileType.RIVER;
+                hasReachedEnd = isRiverEnd(pos);
+            }
+        }
+        Debug.Log(featureTileTypeMap.Count);
+        P.end();
+    }
+
+    private bool isRiverEnd(Vector2Int pos) {
+        if (!isOnMap(pos))
+            return true;
+        if (terrainTileTypeMap.ContainsKey(pos) && terrainTileTypeMap[pos] == TileType.WATER)
+            return true;
+        return false;
+
     }
 
     private int findBestDivider(int number) {
         List<int> dividers = new List<int>();
-        for(int i=1; i<=number; i++) {
+        for (int i = 1; i <= number; i++) {
             if (number % i == 0) {
                 dividers.Add((int)(number / i));
             }
@@ -158,7 +223,7 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
         List<Rect> rects = new List<Rect>();
         int columnCount = findBestDivider(townCount);
         int rowCount = townCount / columnCount;
-        Vector2 rectSize = new Vector2(dimensions.x/columnCount, dimensions.y/rowCount);
+        Vector2 rectSize = new Vector2(dimensions.x / columnCount, dimensions.y / rowCount);
 
         for (int i = 0; i < columnCount; i++) {
             for (int j = 0; j < rowCount; j++) {
@@ -170,15 +235,18 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
 
     //TODO: set size town tile count
     private void generateTowns(int seed, Vector2Int dimensions, int townCount/* int townSize*/) {
-          List<Rect> quadrants = getQuadrants(dimensions, townCount);
+        if (townCount == 0)
+            return;
+
+        List<Rect> quadrants = getQuadrants(dimensions, townCount);
         for (int i = 0; i < townCount; i++) {
             Vector2Int townPos;
-            if (useSegmentation) { 
-                townPos = new Vector2Int(Random.Range((int) quadrants[i].position.x, (int) quadrants[i].position.x + (int) quadrants[i].size.x),
-                                         Random.Range((int) quadrants[i].position.y, (int) quadrants[i].position.y + (int) quadrants[i].size.y));
+            if (useSegmentation) {
+                townPos = new Vector2Int(UnityEngine.Random.Range((int)quadrants[i].position.x, (int)quadrants[i].position.x + (int)quadrants[i].size.x),
+                                         UnityEngine.Random.Range((int)quadrants[i].position.y, (int)quadrants[i].position.y + (int)quadrants[i].size.y));
             } else {
-                townPos = new Vector2Int(Random.Range(0, dimensions.x), Random.Range(0, dimensions.y));
-            Debug.Log(townPos);
+                townPos = new Vector2Int(UnityEngine.Random.Range(0, dimensions.x), UnityEngine.Random.Range(0, dimensions.y));
+                Debug.Log(townPos);
             }
             // set tile
             featureTileTypeMap.Add(townPos, TileType.TOWN);
@@ -186,15 +254,14 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
             Vector2Int vert = Vector2Int.down;
 
             // TODO: can be circumvented by only allowing positions of dimensions - town size 
-
             if (townPos.x == dimensions.x)
                 hori = Vector2Int.left;
             if (townPos.y == dimensions.y)
                 vert = Vector2Int.up;
 
-            featureTileTypeMap.Add(townPos + hori,          TileType.TOWN);
-            featureTileTypeMap.Add(townPos + vert,          TileType.TOWN);
-            featureTileTypeMap.Add(townPos + hori + vert,   TileType.TOWN);
+            featureTileTypeMap.Add(townPos + hori, TileType.TOWN);
+            featureTileTypeMap.Add(townPos + vert, TileType.TOWN);
+            featureTileTypeMap.Add(townPos + hori + vert, TileType.TOWN);
         }
     }
 
@@ -202,28 +269,149 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
         Debug.Log("set tiles");
         P.start("Set Tiles");
         Vector2Int pos = new Vector2Int(0, 0);
+
+        Vector2Int[,] deltas = new Vector2Int[3, 3];
+        deltas[0, 0] = Vector2Int.up + Vector2Int.left;
+        deltas[0, 1] = Vector2Int.up;
+        deltas[0, 2] = Vector2Int.up + Vector2Int.right;
+        deltas[1, 0] = Vector2Int.left;
+        deltas[1, 1] = Vector2Int.zero;
+        deltas[1, 2] = Vector2Int.right;
+        deltas[2, 0] = Vector2Int.down + Vector2Int.left;
+        deltas[2, 1] = Vector2Int.down;
+        deltas[2, 2] = Vector2Int.down + Vector2Int.right;
+
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
                 pos.x = x;
                 pos.y = y;
-                map.SetTile(new Vector3Int(pos.x, pos.y, baseDepth), grassTiles.getTile(0));
+                // Base tiles
+                map.SetTile(new Vector3Int(pos.x, pos.y, baseDepth), tileSets[TileType.GRASS].getIndexedTile(0)); //grassTiles.getTile(0)
 
-                Tile terrainTile = tileSets[terrainTileTypeMap[pos]].getIndexedTile(getSurroundingFlags(pos));
-                map.SetTile(new Vector3Int(pos.x, pos.y, terrainDepth), terrainTile);
-
+                //Terrain Tiles
+                if (terrainTileTypeMap.ContainsKey(pos)) {
+                    TileType terrainType = terrainTileTypeMap[pos];
+                    // adujst which tiling to use for each terrain type
+                    if (terrainType == TileType.WATER || terrainType == TileType.MOUNTAIN) {        //water is tiled depending on surrounding tiles
+                        //collect surrounding tiles
+                        int flags = 0;
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 3; j++) {
+                                Vector2Int surroundingPos = pos + deltas[i, j];
+                                // treat ouside of map as same tile
+                                if (!isOnMap(surroundingPos)) {
+                                    flags += 1 << i * 3 + j;
+                                    // if terrain tile map has a tile and type == this type
+                                } else if (terrainTileTypeMap.ContainsKey(surroundingPos)) {
+                                    if (terrainTileTypeMap[surroundingPos] == terrainType) {
+                                        flags += 1 << i * 3 + j;
+                                    }
+                                }
+                            }
+                        }
+                        map.SetTile(new Vector3Int(pos.x, pos.y, terrainDepth), tileSets[terrainType].getIndexedTile(flags));
+                    } else {
+                        map.SetTile(new Vector3Int(pos.x, pos.y, terrainDepth), tileSets[terrainType].getIndexedTile(0));
+                    }
+                }
+                // Feature Tiles
                 if (featureTileTypeMap.ContainsKey(pos)) {
-                    map.SetTile(new Vector3Int(pos.x, pos.y, featureDepth), townTiles.getTile(0));
+                    //collect surrounding tiles
+                    TileType featureType = featureTileTypeMap[pos];
+                    // adujst which tiling to use for each terrain type
+                    if (featureTileTypeMap[pos] == featureType) {
+                        int flags = 0;
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 3; j++) {
+                                Vector2Int surroundingPos = pos + deltas[i, j];
+                                // treat ouside of map as same tile
+                                if (!isOnMap(surroundingPos)) {
+                                    flags += 1 << i * 3 + j;
+                                    // if terrain tile map has a tile and type == this type
+                                } else if (featureTileTypeMap.ContainsKey(surroundingPos)) {
+                                    if (featureTileTypeMap[surroundingPos] == featureType) {
+                                        flags += 1 << i * 3 + j;
+                                    }
+                                }
+                            }
+                        }
+
+                        map.SetTile(new Vector3Int(pos.x, pos.y, featureDepth), tileSets[featureType].getIndexedTile(flags));
+                    }
+                }
+            }
+            P.end();
+        }
+    }
+
+    private bool isOnMap(Vector2Int pos) {
+        return (pos.x >= 0) && (pos.x < dimensions.x) && (pos.y >= 0) && (pos.y < dimensions.y);
+    }
+
+    private void cleanUpTerrain(int iterationCount) {
+        Vector2Int[,] deltas = new Vector2Int[3, 3];
+        deltas[0, 0] = Vector2Int.up + Vector2Int.left;
+        deltas[0, 1] = Vector2Int.up;
+        deltas[0, 2] = Vector2Int.up + Vector2Int.right;
+        deltas[1, 0] = Vector2Int.left;
+        deltas[1, 1] = Vector2Int.zero;
+        deltas[1, 2] = Vector2Int.right;
+        deltas[2, 0] = Vector2Int.down + Vector2Int.left;
+        deltas[2, 1] = Vector2Int.down;
+        deltas[2, 2] = Vector2Int.down + Vector2Int.right;
+
+        for (int iterations = 0; iterations < iterationCount; iterations++) {
+            for (int x = 0; x < dimensions.x; x++) {
+                for (int y = 0; y < dimensions.y; y++) {
+                    Vector2Int pos = new Vector2Int(x, y);
+
+                    // do only if terrain tile exists here
+                    if (terrainTileTypeMap.ContainsKey(pos)) {
+
+                        TileType type = terrainTileTypeMap[pos];
+
+                        //check surrounding tiles for equality
+                        int differentTilesAround = 0;
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 3; j++) {
+                                Vector2Int surroundingPos = pos + deltas[i, j];
+                                // treat ouside of map as same tile
+                                if (isOnMap(surroundingPos)) {
+                                    if (!(terrainTileTypeMap.ContainsKey(surroundingPos)) || !(terrainTileTypeMap[surroundingPos] == terrainTileTypeMap[pos])) {
+                                        differentTilesAround++;
+                                    }
+                                }
+                            }
+                        }
+                        Debug.Log("same tile count at " + pos + "(" + terrainTileTypeMap[pos] + ")" + ": " + differentTilesAround);
+                        if (differentTilesAround >= cleanUpCutOffNumber)
+                            terrainTileTypeMap.Remove(pos);
+                    }
                 }
             }
         }
-        P.end();
+    }
+
+
+    private void log2DArray<T>(T[,] array) {
+        if (array.Rank != 2)
+            Debug.LogWarning("Can only log 2D arrays.");
+        string output = "[";
+        for (int i = 0; i < array.GetLength(0); i++) {
+            output += "[";
+            for (int j = 0; j < array.GetLength(1); j++) {
+                output += array[i, j] + " ";
+            }
+            output += "]";
+        }
+        Debug.Log(output + "]");
     }
 
     protected bool tileExists(Vector2Int position) {
         return terrainTileTypeMap.ContainsKey(position);
     }
 
-    private Tile getTile(int tileIndex, TileType tileType){
+    private Tile getTile(int tileIndex, TileType tileType) {
         Tile tile = ScriptableObject.CreateInstance<Tile>();
         switch (tileType) {
             case TileType.GRASS:
@@ -237,109 +425,10 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
             case TileType.TOWN:
                 tile = townTiles.getTile(tileIndex); break;
             case TileType.RIVER:
-                tile = townTiles.getTile(tileIndex); break;
+                tile = riverTiles.getTile(tileIndex); break;
             case TileType.ROAD:
-                tile = townTiles.getTile(tileIndex); break;
+                tile = roadTiles.getTile(tileIndex); break;
         }
         return tile;
-    }
-
-    private Tile getTile(Dictionary<Vector2Int, int> tileIndexMap, Dictionary<Vector2Int, TileType> tileTypeMap, Vector2Int pos) {
-        int id = tileIndexMap[pos];
-        Tile tile = grassTiles.getTile(id);
-        switch (tileTypeMap[pos]) {
-            case TileType.FOREST:
-                tile = forestTiles.getTile(id); break;
-            case TileType.WATER:
-                tile = waterTiles.getTile(id); break;
-            case TileType.MOUNTAIN:
-                tile = mountainTiles.getTile(id); break;
-            case TileType.TOWN:
-                Debug.Log("town " + id);
-                tile = townTiles.getTile(id); break;
-            case TileType.RIVER:
-                Debug.Log("river " + id);
-                tile = townTiles.getTile(id); break;
-            case TileType.ROAD:
-                Debug.Log("road " + id);
-                tile = townTiles.getTile(id); break;
-        }
-        return tile;
-    }
-
-    protected int getSurroundingFlags(Vector2Int pos) {
-        // edge Flags:
-        // ___|__1___|___
-        // _8_|_tile_|_2_
-        // ___|__4___|___
-
-        // corner Flags:
-        // _1_|______|_2_
-        // ___|_tile_|___
-        // _8_|______|_4_
-
-        TileType thisType = terrainTileTypeMap[pos];
-        int edgeTileFlags = 0;
-        int cornerTileFlags = 0;
-
-        if (terrainTileTypeMap[pos] == TileType.GRASS)
-            return 4;       //TODO: HACK!!!!
-        if (terrainTileTypeMap[pos] == TileType.TOWN) {
-            Debug.Log("get flags town");
-            return 6;       //TODO: HACK!!!!
-        }
-
-        Vector2Int top = pos + new Vector2Int(0, 1);
-        Vector2Int right = pos + new Vector2Int(1, 0);
-        Vector2Int bottom = pos + new Vector2Int(0, -1);
-        Vector2Int left = pos + new Vector2Int(-1, 0);
-
-        // surroundingTileFlags += (tileExists(top))  && tileTypeMap[top] == thisType) ? 1 : 0;
-        // surroundingTileFlags += (tileExists(right))  && tileTypeMap[right] == thisType) ? 2 : 0;
-        // surroundingTileFlags += (tileExists(bottom)) && tileTypeMap[bottom] == thisType) ? 4 : 0;
-        // surroundingTileFlags += (tileExists(left)) && tileTypeMap[left] == thisType) ? 8 : 0;
-
-        edgeTileFlags += (!tileExists(top)  || ((tileExists(top)  && terrainTileTypeMap[top]  == thisType))) ? 1 : 0;
-        edgeTileFlags += (!tileExists(right)  || ((tileExists(right)  && terrainTileTypeMap[right]  == thisType))) ? 2 : 0;
-        edgeTileFlags += (!tileExists(bottom) || ((tileExists(bottom) && terrainTileTypeMap[bottom] == thisType))) ? 4 : 0;
-        edgeTileFlags += (!tileExists(left) || ((tileExists(left) && terrainTileTypeMap[left] == thisType))) ? 8 : 0;
-
-        /*
-        cornerTileFlags += (!tileExists(top+left) || ((tileExists(top) && terrainTileTypeMap[top] == thisType))) ? 1 : 0;
-        cornerTileFlags += (!tileExists(right) || ((tileExists(right) && terrainTileTypeMap[right] == thisType))) ? 2 : 0;
-        cornerTileFlags += (!tileExists(bottom) || ((tileExists(bottom) && terrainTileTypeMap[bottom] == thisType))) ? 4 : 0;
-        cornerTileFlags += (!tileExists(left) || ((tileExists(left) && terrainTileTypeMap[left] == thisType))) ? 8 : 0;
-        */
-        return edgeTileFlags;
-    }
-
-    protected int getNewTileIndex(int vicinityFlag)
-    {
-        // Flags:
-        // _._|__1___|_._
-        // _8_|_tile_|_2_
-        // _._|__4___|_._
-
-        int newTileId = 0;
-        switch (vicinityFlag) {
-            //case 0: break;
-            //case 1: break;
-            //case 2: break;
-            case 3: newTileId = 6; break;
-            //case 4: break;
-            //case 5: break;
-            case 6: newTileId = 0; break;
-            case 7: newTileId = 3; break;
-            //case 8: break;
-            case 9: newTileId = 8; break;
-            //case 10: break;
-            case 11: newTileId = 7; break;
-            case 12: newTileId = 2; break;
-            case 13: newTileId = 5; break;
-            case 14: newTileId = 1; break;
-            case 15: newTileId = 4; break;
-            default: newTileId = 4; break;
-        }
-        return newTileId;
     }
 }

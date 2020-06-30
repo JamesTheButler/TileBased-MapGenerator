@@ -196,80 +196,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 504684826}
   grassTiles:
-    sprites:
-    - {fileID: 21300036, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
+    texture: {fileID: 2800000, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
     heightLevel: 0
   mountainTiles:
-    sprites:
-    - {fileID: 21300000, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300002, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300004, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300006, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300008, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300010, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300012, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300014, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
-    - {fileID: 21300016, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
+    texture: {fileID: 2800000, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
     heightLevel: 0.701
   waterTiles:
-    sprites:
-    - {fileID: 21300036, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300038, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300040, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300042, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300044, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300046, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300048, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300050, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-    - {fileID: 21300052, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+    texture: {fileID: 2800000, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
     heightLevel: 0.308
   forestTiles:
-    sprites:
-    - {fileID: 21300036, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300038, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300040, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300042, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300044, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300046, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300048, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300050, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300052, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300054, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300056, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300058, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
-    - {fileID: 21300060, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
+    texture: {fileID: 2800000, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
     heightLevel: 0.6
   roadTiles:
-    sprites:
-    - {fileID: 21300000, guid: 7557a90f207c66948922141924391842, type: 3}
-    - {fileID: 21300002, guid: 7557a90f207c66948922141924391842, type: 3}
-    - {fileID: 21300004, guid: 7557a90f207c66948922141924391842, type: 3}
-    - {fileID: 21300006, guid: 7557a90f207c66948922141924391842, type: 3}
-    - {fileID: 21300008, guid: 7557a90f207c66948922141924391842, type: 3}
-    - {fileID: 21300010, guid: 7557a90f207c66948922141924391842, type: 3}
-    - {fileID: 21300012, guid: 7557a90f207c66948922141924391842, type: 3}
+    texture: {fileID: 2800000, guid: 7557a90f207c66948922141924391842, type: 3}
     heightLevel: 0.6
   riverTiles:
-    sprites:
-    - {fileID: 21300000, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
-    - {fileID: 21300002, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
-    - {fileID: 21300004, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
-    - {fileID: 21300006, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
-    - {fileID: 21300008, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
-    - {fileID: 21300010, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
-    - {fileID: 21300012, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
+    texture: {fileID: 2800000, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
     heightLevel: 0.6
   townTiles:
-    sprites:
-    - {fileID: 21300000, guid: 6a1c348309c8d24438450e8c3909f320, type: 3}
+    texture: {fileID: 2800000, guid: 6a1c348309c8d24438450e8c3909f320, type: 3}
     heightLevel: 0
   terrainNoiseScale: 50
   forestNoiseScale: 12
+  cleanUpIterations: 0
+  cleanUpCutOffNumber: 5
   camMover: {fileID: 519420030}
   dimensions: {x: 150, y: 150}
-  minRivers: 0
-  maxRivers: 0
-  townCount: 10
+  riverCount: 3
+  townCount: 0
   useSeed: 1
   seed: 552
   useSegmentation: 1
@@ -472,7 +426,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 25, z: -20}
+  m_LocalPosition: {x: 25, y: 25, z: -27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
