@@ -59,6 +59,7 @@ public class CameraMovement : MonoBehaviour {
 
     public void setMap(Vector2Int dimensions) {
         transform.position = new Vector3(dimensions.x / 2, dimensions.y / 2, transform.position.z);
+    //    cam.orthographicSize = dimensions.x;
         cameraMoveSpeed = dimensions.x / 4;
     }
 
