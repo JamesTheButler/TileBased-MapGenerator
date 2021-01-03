@@ -19,6 +19,8 @@ public class CameraMovement : MonoBehaviour {
 
     private Camera cam;
 
+    //TODO make zoom function change with camera being ortho/perspective
+
     private void Start() {
         cam = GetComponent<Camera>();
         screenSize = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
@@ -30,7 +32,7 @@ public class CameraMovement : MonoBehaviour {
         Vector2 screenRes = new Vector2(cam.pixelWidth, cam.pixelHeight);
         // toggle cam movement
         if (Input.GetKeyDown(KeyCode.C)) {
-            toggleIsCamLocked();
+            ToggleIsCamLocked();
         }
 
         if (allowMouseMovement) {
@@ -40,24 +42,33 @@ public class CameraMovement : MonoBehaviour {
         }
 
         if (!isCamLocked && allowMouseMovement) {
-            if (isMouseOnScreenEdge()) {
-                moveCamera(mousePos, screenRes);
+            if (IsMouseOnScreenEdge()) {
+                MoveCamera(mousePos, screenRes);
             }
         }
 
-        //zoom
-        transform.position += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * zoomSpeed);
+        ApplyZoom();
+    }
 
+    private void ApplyZoom() {
+        if (cam.orthographic)
+            cam.orthographicSize += -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        else
+            transform.position += new Vector3(0, 0, Input.GetAxis("Mouse ScrollWheel") * zoomSpeed);
     }
 
     /// <summary>
     /// Toggles if the camera is allowed to move.
     /// </summary>
-    private void toggleIsCamLocked() {
+    private void ToggleIsCamLocked() {
         isCamLocked = !isCamLocked;
     }
 
-    public void setMap(Vector2Int dimensions) {
+    /// <summary>
+    /// TODO DOC
+    /// </summary>
+    /// <param name="dimensions"></param>
+    public void SetMap(Vector2Int dimensions) {
         transform.position = new Vector3(dimensions.x / 2, dimensions.y / 2, transform.position.z);
     //    cam.orthographicSize = dimensions.x;
         cameraMoveSpeed = dimensions.x / 4;
@@ -66,7 +77,7 @@ public class CameraMovement : MonoBehaviour {
     /// <summary>
     /// Determines if the mouse is close to a screen edge.
     /// </summary>
-    private bool isMouseOnScreenEdge() {
+    private bool IsMouseOnScreenEdge() {
         Vector2 min = new Vector2(moveAreaWidth, moveAreaWidth);
         Vector2 max = new Vector2(cam.pixelWidth - moveAreaWidth, cam.pixelHeight - moveAreaWidth);
         Vector2 mousePos = Input.mousePosition;
@@ -78,7 +89,7 @@ public class CameraMovement : MonoBehaviour {
     /// <summary>
     /// Moves camera when mouse gets close to the edge of a screen.
     /// </summary>
-    private void moveCamera(Vector2 mousePos, Vector2 screenRes) {
+    private void MoveCamera(Vector2 mousePos, Vector2 screenRes) {
         Vector3 direction = new Vector3();
         if (screenRes.x - mousePos.x < moveAreaWidth)
             direction.x = 1;

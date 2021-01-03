@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1297599412985712}
+  m_IsPrefabAsset: 1
+--- !u!1 &1297599412985712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4151277531209034}
+  - component: {fileID: 114593880922640456}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4151277531209034
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297599412985712}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114593880922640456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297599412985712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f4589020e928749b4834bc02f8fc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 0}
+  grassTiles:
+    texture: {fileID: 2800000, guid: f3274ba10b1349243aa3fc67d2116995, type: 3}
+    heightLevel: 0
+  mountainTiles:
+    texture: {fileID: 2800000, guid: 1be4e2b70dab9af42bc32e85704eabce, type: 3}
+    heightLevel: 0.7
+  waterTiles:
+    texture: {fileID: 2800000, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+    heightLevel: 0.3
+  forestTiles:
+    texture: {fileID: 2800000, guid: 4ffbc48c8a99f3d4e8c237f157348104, type: 3}
+    heightLevel: 0.606
+  roadTiles:
+    texture: {fileID: 2800000, guid: 7557a90f207c66948922141924391842, type: 3}
+    heightLevel: 0.6
+  riverTiles:
+    texture: {fileID: 2800000, guid: 5c41f43deafb80d4db94bc9a16dd09b4, type: 3}
+    heightLevel: 0.6
+  townTiles:
+    texture: {fileID: 2800000, guid: 6a1c348309c8d24438450e8c3909f320, type: 3}
+    heightLevel: 0.6
+  terrainNoiseScale: 15
+  forestNoiseScale: 20
+  cleanUpIterations: 5
+  cleanUpCutOffNumber: 5
+  camMover: {fileID: 0}
+  dimensions: {x: 100, y: 100}
+  riverCount: 10
+  townCount: 5
+  useSeed: 1
+  seed: 2020
+  useSegmentation: 1
+  profile: 0
+  noiseQuad: {fileID: 0}
+  riverQuad: {fileID: 0}

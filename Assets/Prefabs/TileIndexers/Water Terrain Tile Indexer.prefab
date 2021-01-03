@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1034588202076572}
+  m_IsPrefabAsset: 1
+--- !u!1 &1034588202076572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4208951224042900}
+  - component: {fileID: 114930080186941906}
+  m_Layer: 0
+  m_Name: Water Terrain Tile Indexer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4208951224042900
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034588202076572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114930080186941906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1034588202076572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa59a4fbe61f4c346920020b3ac9b4fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSprite: {fileID: 21300058, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+  CenterSprite: {fileID: 21300044, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+  OuterCornerTopRightSprite: {fileID: 21300040, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  OuterCornerTopLeftSprite: {fileID: 21300036, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  OuterCornerBottomRightSprite: {fileID: 21300052, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  OuterCornerBottomLeftSprite: {fileID: 21300048, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  EdgeTopSprite: {fileID: 21300038, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+  EdgeLeftSprite: {fileID: 21300042, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+  EdgeRightSprite: {fileID: 21300046, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+  EdgeBottomSprite: {fileID: 21300050, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
+  InnerCornerTopRightSprite: {fileID: 21300056, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  InnerCornerTopLeftSprite: {fileID: 21300054, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  InnerCornerBottomRightSprite: {fileID: 21300062, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
+  InnerCornerBottomLeftSprite: {fileID: 21300060, guid: dd667f4ebba89814195a913f2f42b990,
+    type: 3}
