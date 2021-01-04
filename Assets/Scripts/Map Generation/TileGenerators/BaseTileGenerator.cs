@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public abstract class BaseTileGenerator : MonoBehaviour {
+    public bool IsEnabled = true;
     public Vector2Int tileMapSize;
     public int seed;
-    public bool IsEnabled;
 
     public int layerHeight;
     //public List<TileType> blockTileTypes;

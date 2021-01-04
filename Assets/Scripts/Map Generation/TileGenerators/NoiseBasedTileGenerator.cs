@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class NoiseBasedTileGenerator : BaseTileGenerator {
@@ -8,11 +9,12 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
     [Range(0.0f, 1.0f)]
     public float heightLevelMax;
 
+    public List<int> ignoredLayers;
     public GameObject noiseQuad;
+    
     protected float[,] noise;
 
     public override void GenerateTiles(Tilemap tilemap) {
-
         if (!IsEnabled || tileIndexer == null)
             return;
 
@@ -40,7 +42,7 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
         flagMap = new bool[tileMapSize.x, tileMapSize.y];
         for (int x = 0; x < tileMapSize.x; x++) {
             for (int y = 0; y < tileMapSize.y; y++) {
-                if (noise[x, y] >= heightLevelMin && noise[x, y] <= heightLevelMax) {
+                if (noise[x, y] >= heightLevelMin && noise[x, y] <= heightLevelMax && !tilemap.ContainsAnyTileOnLayers(x, y, ignoredLayers)) {
                     flagMap[x, y] = true;
                     flagCount++;
                 }
@@ -51,7 +53,6 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
 
     private void IndexTiles(Tilemap tilemap) {
         Vector2Int pos = new Vector2Int(0, 0);
-
         Vector2Int[,] deltas = new Vector2Int[3, 3];
         deltas[0, 0] = Vector2Int.up + Vector2Int.left;
         deltas[0, 1] = Vector2Int.up;
@@ -66,7 +67,7 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
             for (int y = 0; y < tileMapSize.y; y++) {
                 if (flagMap[x, y]) {
                     //collect surrounding tiles
-                    /*int flags = 0;
+                    int flags = 0;
                     for (int i = 0; i < 3; i++) {
                         for (int j = 0; j < 3; j++) {
                             Vector2Int surroundingPos = pos + deltas[i, j];
@@ -79,10 +80,7 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
                             }
                         }
                     }
-                    Debug.Log(flags);
-                    tilemap.SetTile(new Vector3Int(pos.x, pos.y, layerHeight), tileIndexer.Index(flags));*/
-                    // index tile
-                    tilemap.SetTile(new Vector3Int(pos.x, pos.y, layerHeight), tileIndexer.Index(0));
+                    tilemap.SetTile(new Vector3Int(x, y, layerHeight), tileIndexer.Index(flags));
                 }
             }
         }

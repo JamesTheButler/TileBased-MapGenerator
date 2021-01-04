@@ -3,7 +3,6 @@ using UnityEngine.Tilemaps;
 
 public class FullTileGenerator : BaseTileGenerator {
     public override void GenerateTiles(Tilemap tilemap) {
-
         if (!IsEnabled)
             return;
 

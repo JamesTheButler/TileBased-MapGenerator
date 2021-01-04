@@ -165,8 +165,9 @@ GameObject:
   - component: {fileID: 128560658}
   - component: {fileID: 128560654}
   - component: {fileID: 128560657}
-  - component: {fileID: 128560656}
   - component: {fileID: 128560655}
+  - component: {fileID: 128560659}
+  - component: {fileID: 128560656}
   m_Layer: 0
   m_Name: New MapGenerator
   m_TagString: Untagged
@@ -187,10 +188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 504684826}
-  tileGenerators:
-  - {fileID: 128560657}
-  - {fileID: 128560656}
-  - {fileID: 128560655}
   dimensions: {x: 100, y: 100}
   generateRandomSeed: 0
   seed: 2020
@@ -205,16 +202,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMapSize: {x: 0, y: 0}
-  seed: 0
   IsEnabled: 1
-  layerHeight: 5
-  tileIndexerPrefab: {fileID: 114597463179834416, guid: 55b20a614417f8c4f8476084211c8a42,
+  tileMapSize: {x: 0, y: 0}
+  seed: 10
+  layerHeight: 1
+  tileIndexerPrefab: {fileID: 114930080186941906, guid: 77b9d505e2133e6498c57b5fa7fad87a,
     type: 2}
-  noiseScale: 15
+  noiseScale: 25
   heightLevelMin: 0
-  heightLevelMax: 0.342
-  noiseQuad: {fileID: 565036890}
+  heightLevelMax: 0.253
+  ignoredLayers: 
+  noiseQuad: {fileID: 0}
 --- !u!114 &128560656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,17 +221,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 128560653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb5e5a5e0489004d87a55fcb637cacb, type: 3}
+  m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEnabled: 1
   tileMapSize: {x: 0, y: 0}
-  seed: 0
-  IsEnabled: 0
-  layerHeight: 1
-  tileIndexerPrefab: {fileID: 114930080186941906, guid: 77b9d505e2133e6498c57b5fa7fad87a,
+  seed: 500
+  layerHeight: 5
+  tileIndexerPrefab: {fileID: 114597463179834416, guid: 55b20a614417f8c4f8476084211c8a42,
     type: 2}
-  propability: 0.228
-  blockingLayers: 
+  noiseScale: 15
+  heightLevelMin: 0.617
+  heightLevelMax: 1
+  ignoredLayers: 0100000002000000
+  noiseQuad: {fileID: 0}
 --- !u!114 &128560657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,9 +246,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88dbfec74bcef194dbbd50bec5fc504c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEnabled: 1
   tileMapSize: {x: 0, y: 0}
   seed: 0
-  IsEnabled: 0
   layerHeight: 0
   tileIndexerPrefab: {fileID: 114981840511511290, guid: 7fe56ca22b3b3374196c3cd67250f1ad,
     type: 2}
@@ -265,6 +266,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &128560659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 128560653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsEnabled: 1
+  tileMapSize: {x: 0, y: 0}
+  seed: 200
+  layerHeight: 2
+  tileIndexerPrefab: {fileID: 114715013449851994, guid: c9f6fa30851ba9c42aeb6323d47cdccb,
+    type: 2}
+  noiseScale: 25
+  heightLevelMin: 0.636
+  heightLevelMax: 1
+  ignoredLayers: 01000000
+  noiseQuad: {fileID: 0}
 --- !u!1 &468303693
 GameObject:
   m_ObjectHideFlags: 0
