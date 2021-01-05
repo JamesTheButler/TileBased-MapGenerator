@@ -337,8 +337,7 @@ public class NoiseBasedTiledMapGenerator : MonoBehaviour {
         return rects;
     }
 
-    //TODO: set size town tile count
-    private void GenerateTowns(int seed, Vector2Int dimensions, int townCount/* int townSize*/) {
+    private void GenerateTowns(int seed, Vector2Int dimensions, int townCount) {
         if (townCount == 0)
             return;
 

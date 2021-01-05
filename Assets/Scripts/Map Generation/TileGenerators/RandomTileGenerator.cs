@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 public class RandomTileGenerator : BaseTileGenerator {
     [Range(0, 1)]
     public float propability;
-    public List<int> blockingLayers;
 
     /// <summary>
     /// Generates tiles according to the specified heightmap and the cut of value;
@@ -30,24 +29,12 @@ public class RandomTileGenerator : BaseTileGenerator {
         for (int x = 0; x < tileMapSize.x; x++) {
             for (int y = 0; y < tileMapSize.y; y++) {
                 if (UnityEngine.Random.Range(0.0f, 1.0f) < propability) {
-                    if (!IsBlocked(tilemap, blockingLayers, new Vector2Int(x, y))) {
+                    if (!tilemap.HasAnyTileOnLayers(x, y, ignoredLayers)) {
                         flagMap[x, y] = true;
                     }
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Check if the provided tile map contains a tile on one of the provided layers in the provided position.
-    /// </summary>
-    private bool IsBlocked(Tilemap tilemap, List<int> blockingLayers, Vector2Int pos) {
-        foreach (var blockingLayer in blockingLayers) {
-            if (tilemap.HasTile(new Vector3Int(pos.x, pos.y, blockingLayer))) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /// <summary>

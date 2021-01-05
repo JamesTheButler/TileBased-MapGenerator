@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public abstract class BaseTileGenerator : MonoBehaviour {
@@ -7,7 +8,7 @@ public abstract class BaseTileGenerator : MonoBehaviour {
     public int seed;
 
     public int layerHeight;
-    //public List<TileType> blockTileTypes;
+    public List<TileLayer> ignoredLayers;
 
     public BaseTileIndexer tileIndexerPrefab;
     protected BaseTileIndexer tileIndexer;

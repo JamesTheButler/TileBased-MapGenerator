@@ -9,9 +9,8 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
     [Range(0.0f, 1.0f)]
     public float heightLevelMax;
 
-    public List<int> ignoredLayers;
     public GameObject noiseQuad;
-    
+
     protected float[,] noise;
 
     public override void GenerateTiles(Tilemap tilemap) {
@@ -42,13 +41,12 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
         flagMap = new bool[tileMapSize.x, tileMapSize.y];
         for (int x = 0; x < tileMapSize.x; x++) {
             for (int y = 0; y < tileMapSize.y; y++) {
-                if (noise[x, y] >= heightLevelMin && noise[x, y] <= heightLevelMax && !tilemap.ContainsAnyTileOnLayers(x, y, ignoredLayers)) {
+                if (noise[x, y] >= heightLevelMin && noise[x, y] <= heightLevelMax && !tilemap.HasAnyTileOnLayers(x, y, ignoredLayers)) {
                     flagMap[x, y] = true;
                     flagCount++;
                 }
             }
         }
-        Debug.Log("flagCount " + flagCount);
     }
 
     private void IndexTiles(Tilemap tilemap) {

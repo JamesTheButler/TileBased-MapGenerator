@@ -16,20 +16,21 @@ public class NewNoiseBaseTiledMapGenerator : MonoBehaviour {
     }
 
     private void Start() {
-        /*if (generateRandomSeed)
-            GenerateSeed();
-        Debug.Log("Map Seed: " + seed);*/
+        if (generateRandomSeed)
+            seed = GenerateSeed();
+        Debug.Log("Map Seed: " + seed);
+        UnityEngine.Random.InitState(seed);
         foreach (var tileGenerator in tileGenerators) {
             // skip null generators
             if (tileGenerator == null)
                 continue;
-            //tileGenerator.seed = seed;
+            tileGenerator.seed = GenerateSeed();
             tileGenerator.tileMapSize = dimensions;
             tileGenerator.GenerateTiles(map);
         }
     }
 
-    private void GenerateSeed() {
-        seed = UnityEngine.Random.Range(0, 10000);
+    private int GenerateSeed() {
+        return UnityEngine.Random.Range(0, 10000);
     }
 }
