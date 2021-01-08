@@ -12,12 +12,12 @@ public class RandomTileGenerator : BaseTileGenerator {
     public override void GenerateTiles(Tilemap tilemap) {
         if (!IsEnabled || tileIndexer == null)
             return;
-
         if (propability == 0.0f)
             return;
+        base.GenerateTiles(tilemap);
 
         SetTiles(tilemap);
-        IndexTiles(tilemap);
+        tileIndexer.Index(tilemap, flagMap, layerHeight);
     }
 
     /// <summary>
@@ -32,19 +32,6 @@ public class RandomTileGenerator : BaseTileGenerator {
                     if (!tilemap.HasAnyTileOnLayers(x, y, ignoredLayers)) {
                         flagMap[x, y] = true;
                     }
-                }
-            }
-        }
-    }
-
-    /// <summary>
-    /// Indexes all tiles.
-    /// </summary>
-    private void IndexTiles(Tilemap tilemap) {
-        for (int x = 0; x < tileMapSize.x; x++) {
-            for (int y = 0; y < tileMapSize.y; y++) {
-                if (flagMap[x, y]) {
-                    tilemap.SetTile(new Vector3Int(x, y, layerHeight), tileIndexer.Index(0));
                 }
             }
         }

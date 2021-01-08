@@ -22,5 +22,7 @@ public abstract class BaseTileGenerator : MonoBehaviour {
     /// <summary>
     /// Add tiles to the provided tile map;
     /// </summary>
-    public virtual void GenerateTiles(Tilemap tilemap) { }
+    public virtual void GenerateTiles(Tilemap tilemap) {
+        flagMap = new bool[tileMapSize.x, tileMapSize.y];
+    }
 }

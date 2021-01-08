@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class NoiseBasedTileGenerator : BaseTileGenerator {
@@ -16,10 +15,11 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
     public override void GenerateTiles(Tilemap tilemap) {
         if (!IsEnabled || tileIndexer == null)
             return;
+        base.GenerateTiles(tilemap);
 
         noise = GeneratePerlinNoise(seed, noiseScale);
         SetTiles(tilemap, noise);
-        IndexTiles(tilemap);
+        tileIndexer.Index(tilemap, flagMap, layerHeight);
         RenderNoise(noise);
     }
 
@@ -48,42 +48,11 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
             }
         }
     }
-
-    private void IndexTiles(Tilemap tilemap) {
-        Vector2Int pos = new Vector2Int(0, 0);
-        Vector2Int[,] deltas = new Vector2Int[3, 3];
-        deltas[0, 0] = Vector2Int.up + Vector2Int.left;
-        deltas[0, 1] = Vector2Int.up;
-        deltas[0, 2] = Vector2Int.up + Vector2Int.right;
-        deltas[1, 0] = Vector2Int.left;
-        deltas[1, 1] = Vector2Int.zero;
-        deltas[1, 2] = Vector2Int.right;
-        deltas[2, 0] = Vector2Int.down + Vector2Int.left;
-        deltas[2, 1] = Vector2Int.down;
-        deltas[2, 2] = Vector2Int.down + Vector2Int.right;
-        for (int x = 0; x < tileMapSize.x; x++) {
-            for (int y = 0; y < tileMapSize.y; y++) {
-                if (flagMap[x, y]) {
-                    //collect surrounding tiles
-                    int flags = 0;
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 3; j++) {
-                            Vector2Int surroundingPos = pos + deltas[i, j];
-                            // treat ouside of map as same tile
-                            if (!surroundingPos.IsInside(new Vector2Int(), tileMapSize - Vector2Int.one)) {
-                                flags += 1 << i * 3 + j;
-                                // if terrain tile map has a tile and type == this type
-                            } else if (flagMap[surroundingPos.x, surroundingPos.y]) {
-                                flags += 1 << i * 3 + j;
-                            }
-                        }
-                    }
-                    tilemap.SetTile(new Vector3Int(x, y, layerHeight), tileIndexer.Index(flags));
-                }
-            }
-        }
-    }
-
+    
+    /// <summary>
+    /// Render noise to the quad (if quad != null).
+    /// </summary>
+    /// <param name="noise"></param>
     private void RenderNoise(float[,] noise) {
         if (noiseQuad == null)
             return;

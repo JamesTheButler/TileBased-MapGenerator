@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,9 +8,12 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
     public int quadrantBlockedLimit;
 
     public override void GenerateTiles(Tilemap tilemap) {
+        if (!IsEnabled)
+            return;
         base.GenerateTiles(tilemap);
+
         GenerateTiles(tilemap, tileCount);
-        IndexTiles(tilemap);
+        tileIndexer.Index(tilemap, flagMap, layerHeight);
     }
 
     private void GenerateTiles(Tilemap tilemap, int townCount) {
@@ -28,6 +30,7 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
             } else {
                 tilePos = new Vector2Int(UnityEngine.Random.Range(0, tileMapSize.x), UnityEngine.Random.Range(0, tileMapSize.y));
             }
+
             // avoid positions with blocking tiles
             if (tilemap.HasAnyTileOnLayers(tilePos.x, tilePos.y, ignoredLayers)) {
                 //skip quadrant if it is fully blocked
@@ -63,18 +66,5 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
             }
         }
         return rects;
-    }
-
-    /// <summary>
-    /// Indexes all tiles.
-    /// </summary>
-    private void IndexTiles(Tilemap tilemap) {
-        for (int x = 0; x < tileMapSize.x; x++) {
-            for (int y = 0; y < tileMapSize.y; y++) {
-                if (flagMap[x, y]) {
-                    tilemap.SetTile(new Vector3Int(x, y, layerHeight), tileIndexer.Index(0));
-                }
-            }
-        }
     }
 }

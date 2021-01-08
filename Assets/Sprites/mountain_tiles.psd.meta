@@ -1,24 +1,54 @@
 fileFormatVersion: 2
 guid: 1be4e2b70dab9af42bc32e85704eabce
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: mountain_tiles_0
-    21300002: mountain_tiles_1
-    21300004: mountain_tiles_2
-    21300006: mountain_tiles_3
-    21300008: mountain_tiles_4
-    21300010: mountain_tiles_5
-    21300012: mountain_tiles_6
-    21300014: mountain_tiles_7
-    21300016: mountain_tiles_8
-    21300018: mountain_tiles_9
-    21300020: mountain_tiles_10
-    21300022: mountain_tiles_11
-    21300024: mountain_tiles_12
-    21300026: mountain_tiles_13
-    21300028: mountain_tiles_14
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: mountain_tiles_0
+  - first:
+      213: 21300002
+    second: mountain_tiles_1
+  - first:
+      213: 21300004
+    second: mountain_tiles_2
+  - first:
+      213: 21300006
+    second: mountain_tiles_3
+  - first:
+      213: 21300008
+    second: mountain_tiles_4
+  - first:
+      213: 21300010
+    second: mountain_tiles_5
+  - first:
+      213: 21300012
+    second: mountain_tiles_6
+  - first:
+      213: 21300014
+    second: mountain_tiles_7
+  - first:
+      213: 21300016
+    second: mountain_tiles_8
+  - first:
+      213: 21300018
+    second: mountain_tiles_9
+  - first:
+      213: 21300020
+    second: mountain_tiles_10
+  - first:
+      213: 21300022
+    second: mountain_tiles_11
+  - first:
+      213: 21300024
+    second: mountain_tiles_12
+  - first:
+      213: 21300026
+    second: mountain_tiles_13
+  - first:
+      213: 21300028
+    second: mountain_tiles_14
   externalObjects: {}
-  serializedVersion: 7
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -38,6 +68,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -72,8 +103,10 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
-  - serializedVersion: 2
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -84,7 +117,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -95,7 +129,8 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -106,6 +141,7 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -125,6 +161,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ef78ea995ce134743b0eb488f5fe7d3f
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -145,6 +182,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 86f1f4d616d43c347a1d2889276aa7ad
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -165,6 +203,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 65534fe50752d4043ad7873e43e288bd
+      internalID: 21300004
       vertices: []
       indices: 
       edges: []
@@ -173,13 +212,15 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: ee9a0aaded16a5348b6c32910a323f09
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
+  pSDShowRemoveMatteOption: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

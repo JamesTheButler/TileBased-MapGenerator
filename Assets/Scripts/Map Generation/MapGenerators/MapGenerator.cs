@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class NewNoiseBaseTiledMapGenerator : MonoBehaviour {
+public class MapGenerator : MonoBehaviour {
     public Tilemap map;
     private List<BaseTileGenerator> tileGenerators;
 

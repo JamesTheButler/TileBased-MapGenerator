@@ -21,8 +21,13 @@ public class RandomTileIndexerNew : BaseTileIndexer {
         }
     }
 
-    public override Tile Index(int vicinityFlag) {
-        var tileId = UnityEngine.Random.Range(0, tileCount);
-        return tiles[tileId];
+    public override void Index(Tilemap tilemap, bool[,] flagMap, int tileLayer) {
+        for (int x = 0; x < flagMap.GetLength(0); x++) {
+            for (int y = 0; y < flagMap.GetLength(1); y++) {
+                if (flagMap[x, y]) {
+                    tilemap.SetTile(new Vector3Int(x, y, tileLayer), tiles[UnityEngine.Random.Range(0, tileCount)]);
+                }
+            }
+        }
     }
 }

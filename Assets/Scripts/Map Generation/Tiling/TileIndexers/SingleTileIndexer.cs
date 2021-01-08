@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 public class SingleTileIndexer : BaseTileIndexer {
     public Texture2D tileTexture;
@@ -14,7 +14,13 @@ public class SingleTileIndexer : BaseTileIndexer {
         tile.sprite = sprite;
     }
 
-    public override Tile Index(int vicinityFlag) {
-        return tile;
+    public override void Index(Tilemap tilemap, bool[,] flagMap, int tileLayer) {
+        for (int x = 0; x < flagMap.GetLength(0); x++) {
+            for (int y = 0; y < flagMap.GetLength(1); y++) {
+                if (flagMap[x, y]) {
+                    tilemap.SetTile(new Vector3Int(x, y, tileLayer), tile);
+                }
+            }
+        }
     }
 }
