@@ -19,33 +19,6 @@ public class TerrainTileIndexer : BaseTileIndexer {
     public Sprite InnerCornerBottomRightSprite;
     public Sprite InnerCornerBottomLeftSprite;
 
-    private Dictionary<int, Tile> indexToTileMap;
-    private Tile defaultTile;
-
-    private Tile SpriteToTile(Sprite sprite) {
-        Tile tile = ScriptableObject.CreateInstance<Tile>();
-        tile.sprite = sprite;
-        return tile;
-    }
-
-    void Awake() {
-        defaultTile = SpriteToTile(DefaultSprite);
-        indexToTileMap = new Dictionary<int, Tile>();
-        indexToTileMap.Add(0, SpriteToTile(OuterCornerTopLeftSprite));
-        indexToTileMap.Add(1, SpriteToTile(EdgeTopSprite));
-        indexToTileMap.Add(2, SpriteToTile(OuterCornerTopRightSprite));
-        indexToTileMap.Add(3, SpriteToTile(EdgeLeftSprite));
-        indexToTileMap.Add(4, SpriteToTile(CenterSprite));
-        indexToTileMap.Add(5, SpriteToTile(EdgeRightSprite));
-        indexToTileMap.Add(6, SpriteToTile(OuterCornerBottomLeftSprite));
-        indexToTileMap.Add(7, SpriteToTile(EdgeBottomSprite));
-        indexToTileMap.Add(8, SpriteToTile(OuterCornerBottomRightSprite));
-        indexToTileMap.Add(9, SpriteToTile(InnerCornerTopLeftSprite));
-        indexToTileMap.Add(10, SpriteToTile(InnerCornerTopRightSprite));
-        indexToTileMap.Add(11, SpriteToTile(InnerCornerBottomLeftSprite));
-        indexToTileMap.Add(12, SpriteToTile(InnerCornerBottomRightSprite));
-    }
-
     public override void Index(Tilemap tilemap, bool[,] flagMap, int tileLayer) {
         // Generate vicinity map
         int[,] vicinityMap = GetVicinityMap(flagMap);
@@ -127,7 +100,7 @@ public class TerrainTileIndexer : BaseTileIndexer {
             case 3: tileSprite = OuterCornerBottomRightSprite; break;
             default: tileSprite = DefaultSprite; break;
         }
-        return SpriteToTile(tileSprite);
+        return TileUtility.SpriteToTile(tileSprite);
     }
 
     private Sprite ResolveCenterPiece(int vicinityFlag, int cornerId) {

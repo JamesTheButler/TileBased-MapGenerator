@@ -216,6 +216,12 @@ PrefabInstance:
       propertyPath: seed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114021446152512584, guid: 98511551b250b68498f96e6a8e7d8343,
+        type: 3}
+      propertyPath: tileIndexerPrefab
+      value: 
+      objectReference: {fileID: 114597463179834416, guid: 55b20a614417f8c4f8476084211c8a42,
+        type: 3}
     - target: {fileID: 114607398825070236, guid: 98511551b250b68498f96e6a8e7d8343,
         type: 3}
       propertyPath: ignoredLayers.Array.size
@@ -241,16 +247,34 @@ PrefabInstance:
       propertyPath: seed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114624280959850842, guid: 98511551b250b68498f96e6a8e7d8343,
+        type: 3}
+      propertyPath: tileIndexerPrefab
+      value: 
+      objectReference: {fileID: 114715013449851994, guid: c9f6fa30851ba9c42aeb6323d47cdccb,
+        type: 3}
     - target: {fileID: 114712849115760502, guid: 98511551b250b68498f96e6a8e7d8343,
+        type: 3}
+      propertyPath: seed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114712849115760502, guid: 98511551b250b68498f96e6a8e7d8343,
+        type: 3}
+      propertyPath: tileIndexerPrefab
+      value: 
+      objectReference: {fileID: 114930080186941906, guid: 77b9d505e2133e6498c57b5fa7fad87a,
+        type: 3}
+    - target: {fileID: 114888159386041302, guid: 98511551b250b68498f96e6a8e7d8343,
         type: 3}
       propertyPath: seed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114888159386041302, guid: 98511551b250b68498f96e6a8e7d8343,
         type: 3}
-      propertyPath: seed
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: tileIndexerPrefab
+      value: 
+      objectReference: {fileID: 114981840511511290, guid: 7fe56ca22b3b3374196c3cd67250f1ad,
+        type: 3}
     - target: {fileID: 114963238628622418, guid: 98511551b250b68498f96e6a8e7d8343,
         type: 3}
       propertyPath: map
@@ -258,6 +282,35 @@ PrefabInstance:
       objectReference: {fileID: 504684826}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98511551b250b68498f96e6a8e7d8343, type: 3}
+--- !u!1 &270515314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1400181154196298, guid: 98511551b250b68498f96e6a8e7d8343,
+    type: 3}
+  m_PrefabInstance: {fileID: 111107557}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &270515315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270515314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsEnabled: 1
+  tileMapSize: {x: 0, y: 0}
+  seed: 15
+  layerHeight: 6
+  ignoredLayers: 
+  tileIndexerPrefab: {fileID: -1801221220459304623, guid: 7f586d8c808dd8d4e8dc8f32bb747f12,
+    type: 3}
+  noiseScale: 15
+  heightLevelMin: 0.7
+  heightLevelMax: 1
+  noiseQuad: {fileID: 0}
 --- !u!1 &468303693
 GameObject:
   m_ObjectHideFlags: 0
