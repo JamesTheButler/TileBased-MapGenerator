@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class RoadTileIndexer : BaseTileIndexer {
@@ -78,8 +77,6 @@ public class RoadTileIndexer : BaseTileIndexer {
         // __2_|_tile_|_4_
         // ____|__8___|____
         int edgeId = 0;
-        int cornerId = 0;
-        // i.e. if vicinityFlag has a 1 in position "TopLeft", then there is a piece in the top left position
         if ((vicinityFlag & (1 << (int)VicinityFlagEntry.Top)) != 0) edgeId += 1;
         if ((vicinityFlag & (1 << (int)VicinityFlagEntry.Left)) != 0) edgeId += 2;
         if ((vicinityFlag & (1 << (int)VicinityFlagEntry.Right)) != 0) edgeId += 4;
