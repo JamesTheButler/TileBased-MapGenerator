@@ -280,6 +280,11 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 504684826}
+    - target: {fileID: 114963238628622418, guid: 98511551b250b68498f96e6a8e7d8343,
+        type: 3}
+      propertyPath: generateRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98511551b250b68498f96e6a8e7d8343, type: 3}
 --- !u!1 &270515314 stripped

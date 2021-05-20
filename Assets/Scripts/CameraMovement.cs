@@ -42,12 +42,18 @@ public class CameraMovement : MonoBehaviour {
         }
 
         if (!isCamLocked && allowMouseMovement) {
+            MoveCameraWithKeys(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (IsMouseOnScreenEdge()) {
-                MoveCamera(mousePos, screenRes);
+                MoveCameraWithMouse(mousePos, screenRes);
             }
         }
 
         ApplyZoom();
+    }
+
+    private void MoveCameraWithKeys(float h, float v) {
+        Vector3 direction = new Vector3(h, v, 0);
+        cam.transform.position += direction * cameraMoveSpeed * Time.deltaTime;
     }
 
     private void ApplyZoom() {
@@ -89,7 +95,7 @@ public class CameraMovement : MonoBehaviour {
     /// <summary>
     /// Moves camera when mouse gets close to the edge of a screen.
     /// </summary>
-    private void MoveCamera(Vector2 mousePos, Vector2 screenRes) {
+    private void MoveCameraWithMouse(Vector2 mousePos, Vector2 screenRes) {
         Vector3 direction = new Vector3();
         if (screenRes.x - mousePos.x < moveAreaWidth)
             direction.x = 1;
