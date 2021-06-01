@@ -7,6 +7,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
     public bool isCamLocked;
     public bool allowMouseMovement;
+    public bool allowKeyMovement;
 
     public float cameraMoveSpeed;
     public float zoomSpeed;
@@ -40,9 +41,10 @@ public class CameraMovement : MonoBehaviour {
                 cam.transform.position = startPosition;
             }
         }
-
-        if (!isCamLocked && allowMouseMovement) {
+        if (!isCamLocked && allowKeyMovement) {
             MoveCameraWithKeys(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        }
+        if (!isCamLocked && allowMouseMovement) {
             if (IsMouseOnScreenEdge()) {
                 MoveCameraWithMouse(mousePos, screenRes);
             }
