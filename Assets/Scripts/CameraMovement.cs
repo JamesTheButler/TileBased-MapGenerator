@@ -15,7 +15,7 @@ public class CameraMovement : MonoBehaviour {
     public float maxZoom;
     public float moveAreaWidth;
 
-     private Vector3 startPosition;
+    private Vector3 startPosition;
     private Vector2 screenSize;
 
     private Camera cam;
@@ -28,7 +28,7 @@ public class CameraMovement : MonoBehaviour {
         startPosition = transform.position;
     }
 
-    private void Update () {
+    private void Update() {
         Vector2 mousePos = Input.mousePosition;
         Vector2 screenRes = new Vector2(cam.pixelWidth, cam.pixelHeight);
         // toggle cam movement
@@ -78,7 +78,7 @@ public class CameraMovement : MonoBehaviour {
     /// <param name="dimensions"></param>
     public void SetMap(Vector2Int dimensions) {
         transform.position = new Vector3(dimensions.x / 2, dimensions.y / 2, transform.position.z);
-    //    cam.orthographicSize = dimensions.x;
+        //    cam.orthographicSize = dimensions.x;
         cameraMoveSpeed = dimensions.x / 4;
     }
 
