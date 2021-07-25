@@ -6,12 +6,12 @@ public class TownManager : MonoBehaviour {
 
     private List<Town> towns = new List<Town>();
 
-    public delegate void Tick();
-    public static event Tick OnTownTick;
+    //public delegate void Tick();
+    //public static event Tick OnTownTick;
 
-    [SerializeField] float townStockUpdateInterval = 1f;
-    [SerializeField] float townPopulationGrowthInterval = 5f;
-    private float lastUpdateTime = 0;
+    //[SerializeField] float townStockUpdateInterval = 1f;
+    //[SerializeField] float townPopulationGrowthInterval = 5f;
+    //private float lastUpdateTime = 0;
 
     void Start() {
         var defaultConsumption = new CommodityDict() {
@@ -34,13 +34,6 @@ public class TownManager : MonoBehaviour {
             var infoPanel = Instantiate(townInfoPanelPrefab, transform).GetComponent<TownInfoPanel>();
             infoPanel.ConnectTown(town);
             town.TriggerAllEvents();
-        }
-    }
-
-    private void Update() {
-        if (Time.time - lastUpdateTime > townStockUpdateInterval) {
-            OnTownTick?.Invoke();
-            lastUpdateTime = Time.time;
         }
     }
 }

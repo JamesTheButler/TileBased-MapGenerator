@@ -1,4 +1,4 @@
-﻿public class Town {
+﻿public class Town/* : IIntervalListener*/{
     public string Name { get; set; }
 
     int _population;
@@ -69,15 +69,15 @@
         Stock = stock;
         Consumption = consumption;
         Production = production;
-        TownManager.OnTownTick += UpdateStockAndPopulation;
+        UpdateEventManager.OnTownStockUpdate += UpdateStock;
+        UpdateEventManager.OnTownPopulationUpdate += UpdatePopulation;
     }
 
-    private void UpdateStockAndPopulation() {
-        Population += (int)(Population * 0.08f);
+    private void UpdateStock() {
         var tempStock = new CommodityDict(Stock);
         //TODO: add and remove items from stock if they have been produced/consumed
 
-        foreach(var comm in Production.Keys) {
+        foreach (var comm in Production.Keys) {
             tempStock[comm] += Production[comm];
         }
 
@@ -87,10 +87,20 @@
 
         Stock = tempStock;
     }
+
+    private void UpdatePopulation() {
+        Population += (int)(Population * 0.08f);
+    }
+
+
     public void TriggerAllEvents() {
         OnPopulationChanged?.Invoke(Population);
         OnStockChanged?.Invoke(Stock);
         OnConsumptionChanged?.Invoke(Consumption);
         OnProductionChanged?.Invoke(Production);
+    }
+
+    public void OnInterval() {
+        throw new System.NotImplementedException();
     }
 }
