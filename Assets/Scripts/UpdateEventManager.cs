@@ -1,6 +1,11 @@
 ﻿using System;
-using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
+public enum UpdateType {
+    BASE_UPDATE,
+    TOWN_STOCK,
+    TOWN_POPULATION,
+    PRICE_UPDATE,
+}
 
 public class UpdateEventManager : MonoBehaviour {
     public delegate void UpdateEvent();
@@ -9,15 +14,8 @@ public class UpdateEventManager : MonoBehaviour {
     public static event UpdateEvent OnTownStockUpdate;
     public static event UpdateEvent OnPriceUpdate;
 
-    [Serializable] public class UpdateTypeToFloatDictionary : SerializableDictionaryBase<UpdateType, float> { }
-    [SerializeField] UpdateTypeToFloatDictionary updateEventIntervalTable = new UpdateTypeToFloatDictionary();
-    UpdateTypeToFloatDictionary updatEventLastUpdateTable = new UpdateTypeToFloatDictionary();
-    public enum UpdateType {
-        BASE_UPDATE,
-        TOWN_STOCK,
-        TOWN_POPULATION,
-        PRICE_UPDATE,
-    }
+    [SerializeField] SerializableDict_UpdateType_float updateEventIntervalTable = new SerializableDict_UpdateType_float();
+    SerializableDict_UpdateType_float updatEventLastUpdateTable = new SerializableDict_UpdateType_float();
 
     private void Invoke(UpdateType type) {
         switch (type) {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class RandomTileGenerator : BaseTileGenerator {
@@ -9,31 +8,23 @@ public class RandomTileGenerator : BaseTileGenerator {
     /// <summary>
     /// Generates tiles according to the specified heightmap and the cut of value;
     /// </summary>
-    public override void GenerateTiles(Tilemap tilemap) {
-        if (!IsEnabled || tileIndexer == null)
-            return;
-        if (propability == 0.0f)
-            return;
-        base.GenerateTiles(tilemap);
+    public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
+        var thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
 
-        SetTiles(tilemap);
-        tileIndexer.Index(tilemap, flagMap, layerHeight);
-    }
+        if (!IsEnabled) return thisLayer;
+        if (propability == 0.0f) return thisLayer;
 
-    /// <summary>
-    /// Randomly fills the flag map with tiles.
-    /// </summary>
-    private void SetTiles(Tilemap tilemap) {
         UnityEngine.Random.InitState(seed);
-        flagMap = new bool[tileMapSize.x, tileMapSize.y];
-        for (int x = 0; x < tileMapSize.x; x++) {
-            for (int y = 0; y < tileMapSize.y; y++) {
+        thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
+        for (int x = 0; x < tileTypeMap.size.x; x++) {
+            for (int y = 0; y < tileTypeMap.size.y; y++) {
                 if (UnityEngine.Random.Range(0.0f, 1.0f) < propability) {
-                    if (!tilemap.HasAnyTileOnLayers(x, y, ignoredLayers)) {
-                        flagMap[x, y] = true;
+                    if (!tileTypeMap.HasAnyTileOnLayers(x, y, blockingTileTypes)) {
+                        thisLayer[x, y] = true;
                     }
                 }
             }
         }
+        return thisLayer;
     }
 }

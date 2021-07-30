@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 class EvenlyDistributedTileGenerator : BaseTileGenerator {
     public int tileCount;
     public bool useSegmentation;
     public int quadrantBlockedLimit;
 
-    public override void GenerateTiles(Tilemap tilemap) {
-        if (!IsEnabled)
-            return;
-        base.GenerateTiles(tilemap);
+    public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
+        var thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
 
-        GenerateTiles(tilemap, tileCount);
-        tileIndexer.Index(tilemap, flagMap, layerHeight);
+        if (!IsEnabled) return thisLayer;
+
+        GenerateTiles(tileTypeMap, tileCount, tileTypeMap.size, ref thisLayer);
+
+        return thisLayer;
     }
 
-    private void GenerateTiles(Tilemap tilemap, int townCount) {
-        if (townCount == 0)
+    private void GenerateTiles(TileTypeMap tileTypeMap, int townCount,Vector2Int tileMapSize, ref bool[,] thisLayer) {
+        /*if (townCount == 0)
             return;
         flagMap = new bool[tileMapSize.x, tileMapSize.y];
         List<Rect> quadrants = GetQuadrants(tileMapSize, townCount);
@@ -41,7 +41,7 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
             } else {
                 flagMap[tilePos.x, tilePos.y] = true;
             }
-        }
+        }*/
     }
 
     private int FindBestDivider(int number) {

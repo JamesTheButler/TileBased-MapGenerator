@@ -1,28 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public abstract class BaseTileGenerator : MonoBehaviour {
     public bool IsEnabled = true;
-    public Vector2Int tileMapSize;
     public int seed;
+    public TileType tileType;
 
-    public int layerHeight;
-    public List<TileLayer> ignoredLayers;
+    public List<TileType> blockingTileTypes;
 
-    public BaseTileIndexer tileIndexerPrefab;
-    protected BaseTileIndexer tileIndexer;
-
-    protected bool[,] flagMap;
-
-    void Awake() {
-        tileIndexer = Instantiate(tileIndexerPrefab);
-    }
-
-    /// <summary>
-    /// Add tiles to the provided tile map;
-    /// </summary>
-    public virtual void GenerateTiles(Tilemap tilemap) {
-        flagMap = new bool[tileMapSize.x, tileMapSize.y];
-    }
+    public abstract bool[,] GenerateTiles(TileTypeMap tileTypeMap);
 }

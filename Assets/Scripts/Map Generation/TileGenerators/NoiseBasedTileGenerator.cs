@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class NoiseBasedTileGenerator : BaseTileGenerator {
     public float noiseScale;
@@ -8,25 +7,26 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
     [Range(0.0f, 1.0f)]
     public float heightLevelMax;
 
-    public GameObject noiseQuad;
+    public GameObject debugNoiseQuad;
 
     protected float[,] noise;
 
-    public override void GenerateTiles(Tilemap tilemap) {
-        if (!IsEnabled || tileIndexer == null)
-            return;
-        base.GenerateTiles(tilemap);
+    public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
+        var thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
 
-        noise = GeneratePerlinNoise(seed, noiseScale);
-        SetTiles(tilemap, noise);
-        tileIndexer.Index(tilemap, flagMap, layerHeight);
-        RenderNoise(noise);
+        if (!IsEnabled) return thisLayer;
+
+        SetTiles(
+            tileTypeMap,
+            GeneratePerlinNoise(seed, noiseScale, tileTypeMap.size),
+            tileTypeMap.size,
+            ref thisLayer
+            );
+        RenderNoise(noise, tileTypeMap.size);
+        return thisLayer;
     }
 
-    /// <summary>
-    /// Generates and returns a perlin noise according to the tile map size, the provided seed and the provided noise scale.
-    /// </summary>
-    private float[,] GeneratePerlinNoise(int seed, float noiseScale) {
+    private float[,] GeneratePerlinNoise(int seed, float noiseScale, Vector2Int tileMapSize) {
         var noise = new float[tileMapSize.x, tileMapSize.y];
         for (int x = 0; x < tileMapSize.x; x++) {
             for (int y = 0; y < tileMapSize.y; y++) {
@@ -36,26 +36,18 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
         return noise;
     }
 
-    private void SetTiles(Tilemap tilemap, float[,] noise) {
-        var flagCount = 0;
-        flagMap = new bool[tileMapSize.x, tileMapSize.y];
+    private void SetTiles(TileTypeMap tileTypeMap, float[,] noise, Vector2Int tileMapSize, ref bool[,] thisLayer) {
         for (int x = 0; x < tileMapSize.x; x++) {
             for (int y = 0; y < tileMapSize.y; y++) {
-                if (noise[x, y] >= heightLevelMin && noise[x, y] <= heightLevelMax && !tilemap.HasAnyTileOnLayers(x, y, ignoredLayers)) {
-                    flagMap[x, y] = true;
-                    flagCount++;
+                if (noise[x, y] >= heightLevelMin && noise[x, y] <= heightLevelMax && !tileTypeMap.HasAnyTileOnLayers(x, y, blockingTileTypes)) {
+                    thisLayer[x, y] = true;
                 }
             }
         }
     }
-    
-    /// <summary>
-    /// Render noise to the quad (if quad != null).
-    /// </summary>
-    /// <param name="noise"></param>
-    private void RenderNoise(float[,] noise) {
-        if (noiseQuad == null)
-            return;
+
+    private void RenderNoise(float[,] noise, Vector2Int tileMapSize) {
+        if (debugNoiseQuad == null) return;
 
         Texture2D texture = new Texture2D(tileMapSize.x, tileMapSize.y, TextureFormat.ARGB32, false);
         texture.filterMode = FilterMode.Point;
@@ -65,9 +57,9 @@ public class NoiseBasedTileGenerator : BaseTileGenerator {
                 texture.SetPixel(x, y, new Color(noisePixel, noisePixel, noisePixel, 1f));
             }
         }
-        noiseQuad.transform.position = new Vector3(tileMapSize.x / 2, tileMapSize.y / 2, -5);
-        noiseQuad.transform.localScale = new Vector3(tileMapSize.x, tileMapSize.y, 1);
+        debugNoiseQuad.transform.position = new Vector3(tileMapSize.x / 2, tileMapSize.y / 2, -5);
+        debugNoiseQuad.transform.localScale = new Vector3(tileMapSize.x, tileMapSize.y, 1);
         texture.Apply();
-        noiseQuad.GetComponent<Renderer>().material.mainTexture = texture;
+        debugNoiseQuad.GetComponent<Renderer>().material.mainTexture = texture;
     }
 }
