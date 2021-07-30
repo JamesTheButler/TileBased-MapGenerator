@@ -6,25 +6,24 @@ public class UpdateEventManager : MonoBehaviour {
     public delegate void UpdateEvent();
     public static event UpdateEvent OnUpdate;
     public static event UpdateEvent OnTownPopulationUpdate;
-    [SerializeField] float townPopulationUpdateInterval = 5.0f;
     public static event UpdateEvent OnTownStockUpdate;
-    [SerializeField] float townStockUpdateInterval = 1.0f;
+    public static event UpdateEvent OnPriceUpdate;
 
-    //Dictionary<IntervalType, IntervalData> intervalTable;
-    [Serializable] public class ITtoFDict : SerializableDictionaryBase<IntervalType, float> { }
-    [SerializeField] ITtoFDict updateEventIntervalTable = new ITtoFDict();
-    ITtoFDict updatEventLastUpdateTable = new ITtoFDict();
-    public enum IntervalType {
+    [Serializable] public class UpdateTypeToFloatDictionary : SerializableDictionaryBase<UpdateType, float> { }
+    [SerializeField] UpdateTypeToFloatDictionary updateEventIntervalTable = new UpdateTypeToFloatDictionary();
+    UpdateTypeToFloatDictionary updatEventLastUpdateTable = new UpdateTypeToFloatDictionary();
+    public enum UpdateType {
         BASE_UPDATE,
         TOWN_STOCK,
         TOWN_POPULATION,
+        PRICE_UPDATE,
     }
 
-    private void Invoke(IntervalType type) {
+    private void Invoke(UpdateType type) {
         switch (type) {
-            case IntervalType.BASE_UPDATE: OnUpdate?.Invoke(); break;
-            case IntervalType.TOWN_POPULATION: OnTownPopulationUpdate?.Invoke(); break;
-            case IntervalType.TOWN_STOCK: OnTownStockUpdate?.Invoke(); break;
+            case UpdateType.TOWN_POPULATION: OnTownPopulationUpdate?.Invoke(); break;
+            case UpdateType.TOWN_STOCK: OnTownStockUpdate?.Invoke(); break;
+            case UpdateType.PRICE_UPDATE: OnPriceUpdate?.Invoke(); break;
         }
     }
 
@@ -42,7 +41,6 @@ public class UpdateEventManager : MonoBehaviour {
             if (now - lastUpdate > intervalTime) {
                 updatEventLastUpdateTable[updateEventType] = now;
                 Invoke(updateEventType);
-                Debug.Log($"Updateeventmgr updated {updateEventType.ToString()}");
             }
         }
     }

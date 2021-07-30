@@ -10,7 +10,7 @@ public class TownInfoStockListItem : MonoBehaviour {
     public void UpdateListItem(string name, double amount, double production, double consumption, double totalChange, double price) {
         UiUtility.SetUiText(nameText, name);
         UiUtility.SetUiText(amountText, FormateDouble(amount));
-        UiUtility.SetUiText(amountChangeText, $"{FormateDouble(totalChange)}({FormateDouble(production)}-{FormateDouble(consumption)})");
+        UiUtility.SetUiText(amountChangeText, $"{FormateDouble(totalChange)}(+{FormateDouble(production)} / -{FormateDouble(consumption)})");
         UiUtility.SetUiText(priceText, FormateDouble(price));
     }
 

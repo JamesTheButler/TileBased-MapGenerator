@@ -152,8 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437fbb936d5043146b0c234543618e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townPopulationUpdateInterval: 5
-  townStockUpdateInterval: 1
   updateEventIntervalTable:
     reorderableList:
       canAdd: 1
@@ -177,12 +175,12 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 010000000200000000000000
-    _keys: 010000000200000000000000
+    _keyValues: 010000000200000003000000
+    _keys: 010000000200000003000000
     _values:
     - 1
     - 5
-    - 0
+    - 1
 --- !u!4 &176254620
 Transform:
   m_ObjectHideFlags: 0
