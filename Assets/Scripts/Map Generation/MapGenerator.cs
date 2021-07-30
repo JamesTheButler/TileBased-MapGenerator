@@ -35,12 +35,11 @@ public class MapGenerator : MonoBehaviour {
             tileTypeMap.SetLayer(tileGenerator.tileType, layer);
         }
         foreach (var element in tileIndexers) {
-            bool[,] layer = tileTypeMap.GetLayer(element.Key);
-            if (layer == null) {
-                throw new Exception($"MapGenerator -- tile indexing -- No layer for {element.Key} in tileTypeMap.");
+            if (tileTypeMap.HasLayer(element.Key)) {
+                var layer = tileTypeMap.GetLayer(element.Key);
+                // create tile indexer and index
+                Instantiate(element.Value, transform).Index(tileMap, layer, tileLayerHeight[element.Key]);
             }
-
-            element.Value.Index(tileMap, layer, tileLayerHeight[element.Key]);
         }
     }
 

@@ -14,6 +14,9 @@ public class RandomTileIndexer : BaseTileIndexer {
         Sprite[] sprites = AssetDatabase.LoadAllAssetsAtPath(spriteSheet).OfType<Sprite>().ToArray();
         tileCount = sprites.Length;
         tiles = new List<Tile>();
+
+        Debug.Log($"{spriteSheet} {tileCount}");
+
         foreach (var sprite in sprites) {
             Tile t = ScriptableObject.CreateInstance<Tile>();
             t.sprite = sprite;
@@ -25,7 +28,9 @@ public class RandomTileIndexer : BaseTileIndexer {
         for (int x = 0; x < flagMap.GetLength(0); x++) {
             for (int y = 0; y < flagMap.GetLength(1); y++) {
                 if (flagMap[x, y]) {
-                    tilemap.SetTile(new Vector3Int(x, y, tileLayer), tiles[UnityEngine.Random.Range(0, tileCount)]);
+                    var pos = new Vector3Int(x, y, tileLayer);
+                    var tile = tiles[UnityEngine.Random.Range(0, tileCount)];
+                    tilemap.SetTile(pos, tile);
                 }
             }
         }

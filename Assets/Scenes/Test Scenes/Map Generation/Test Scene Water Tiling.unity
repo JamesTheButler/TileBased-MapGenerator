@@ -441,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileIndexers.reorderableList.isExpanded
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -694,6 +694,11 @@ PrefabInstance:
       propertyPath: tileLayerHeight._values.Array.data[5]
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: tileMap
+      value: 
+      objectReference: {fileID: 863097637}
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: blockingTileTypes.Array.size
@@ -714,6 +719,11 @@ PrefabInstance:
       propertyPath: tileType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: IsEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: blockingTileTypes.Array.size
@@ -728,6 +738,11 @@ PrefabInstance:
         type: 3}
       propertyPath: tileType
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: IsEnabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -744,6 +759,11 @@ PrefabInstance:
       propertyPath: blockingTileTypes.Array.data[0]
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileType
@@ -752,7 +772,7 @@ PrefabInstance:
     - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: IsEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1955334510103119796, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -829,11 +849,12 @@ PrefabInstance:
       propertyPath: blockingTileTypes.Array.data[0]
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1958265519869857604, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
-    - {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
-    - {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
-    - {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
+    - target: {fileID: 1958265519869857604, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
 --- !u!1 &347018181
 GameObject:

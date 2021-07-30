@@ -2,9 +2,9 @@
 using UnityEngine;
 
 public abstract class BaseTileGenerator : MonoBehaviour {
+    public TileType tileType;
     public bool IsEnabled = true;
     public int seed;
-    public TileType tileType;
 
     public List<TileType> blockingTileTypes;
 
