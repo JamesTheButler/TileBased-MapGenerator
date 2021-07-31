@@ -72,19 +72,12 @@ public class CameraMovement : MonoBehaviour {
         isCamLocked = !isCamLocked;
     }
 
-    /// <summary>
-    /// TODO DOC
-    /// </summary>
-    /// <param name="dimensions"></param>
     public void SetMap(Vector2Int dimensions) {
         transform.position = new Vector3(dimensions.x / 2, dimensions.y / 2, transform.position.z);
         //    cam.orthographicSize = dimensions.x;
         cameraMoveSpeed = dimensions.x / 4;
     }
 
-    /// <summary>
-    /// Determines if the mouse is close to a screen edge.
-    /// </summary>
     private bool IsMouseOnScreenEdge() {
         Vector2 min = new Vector2(moveAreaWidth, moveAreaWidth);
         Vector2 max = new Vector2(cam.pixelWidth - moveAreaWidth, cam.pixelHeight - moveAreaWidth);

@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957325759755068424}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -49,7 +49,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5075c83c692389498557c99bdea599f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
+  tileMap: {fileID: 0}
+  tileIndexers:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: 010000000200000003000000040000000500000007000000
+    _keys: 010000000200000003000000040000000500000007000000
+    _values:
+    - {fileID: 114981840511511290, guid: 7fe56ca22b3b3374196c3cd67250f1ad, type: 3}
+    - {fileID: 114597463179834416, guid: 55b20a614417f8c4f8476084211c8a42, type: 3}
+    - {fileID: 114715013449851994, guid: c9f6fa30851ba9c42aeb6323d47cdccb, type: 3}
+    - {fileID: 114930080186941906, guid: 77b9d505e2133e6498c57b5fa7fad87a, type: 3}
+    - {fileID: 114610457471224462, guid: 425a6d0de6244714ebd6f90091566981, type: 3}
+    - {fileID: -1801221220459304623, guid: 7f586d8c808dd8d4e8dc8f32bb747f12, type: 3}
+  tileLayerHeight:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: 010000000400000003000000020000000700000005000000
+    _keys: 010000000400000003000000020000000700000005000000
+    _values: 010000000300000004000000050000000a0000000f000000
   dimensions: {x: 100, y: 100}
   generateRandomSeed: 1
   seed: 2020
@@ -65,13 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88dbfec74bcef194dbbd50bec5fc504c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 1
   IsEnabled: 1
-  tileMapSize: {x: 0, y: 0}
   seed: 0
-  layerHeight: 0
-  ignoredLayers: 
-  tileIndexerPrefab: {fileID: 114981840511511290, guid: 7fe56ca22b3b3374196c3cd67250f1ad,
-    type: 3}
+  blockingTileTypes: 
 --- !u!114 &1926030629083465780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,13 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 4
   IsEnabled: 1
-  tileMapSize: {x: 0, y: 0}
   seed: 0
-  layerHeight: 1
-  ignoredLayers: 
-  tileIndexerPrefab: {fileID: 114930080186941906, guid: 77b9d505e2133e6498c57b5fa7fad87a,
-    type: 3}
+  blockingTileTypes: 
   noiseScale: 25
   heightLevelMin: 0
   heightLevelMax: 0.253
@@ -107,13 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 3
   IsEnabled: 1
-  tileMapSize: {x: 0, y: 0}
   seed: 0
-  layerHeight: 2
-  ignoredLayers: 01000000
-  tileIndexerPrefab: {fileID: 114715013449851994, guid: c9f6fa30851ba9c42aeb6323d47cdccb,
-    type: 3}
+  blockingTileTypes: 04000000
   noiseScale: 25
   heightLevelMin: 0.636
   heightLevelMax: 1
@@ -130,13 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEnabled: 1
-  tileMapSize: {x: 0, y: 0}
+  tileType: 2
+  IsEnabled: 0
   seed: 0
-  layerHeight: 5
-  ignoredLayers: 0100000002000000
-  tileIndexerPrefab: {fileID: 114597463179834416, guid: 55b20a614417f8c4f8476084211c8a42,
-    type: 3}
+  blockingTileTypes: 0400000003000000
   noiseScale: 15
   heightLevelMin: 0.617
   heightLevelMax: 1
@@ -153,13 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3131ab56ef45b4a84c2bb30ecdf74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 5
   IsEnabled: 1
-  tileMapSize: {x: 0, y: 0}
   seed: 0
-  layerHeight: 7
-  ignoredLayers: 01000000
-  tileIndexerPrefab: {fileID: 114610457471224462, guid: 425a6d0de6244714ebd6f90091566981,
-    type: 3}
+  blockingTileTypes: 04000000
   tileCount: 15
   useSegmentation: 1
   quadrantBlockedLimit: 25
@@ -175,13 +218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8134974beb81c448928210f58170c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 7
   IsEnabled: 1
-  tileMapSize: {x: 0, y: 0}
   seed: 15
-  layerHeight: 6
-  ignoredLayers: 
-  tileIndexerPrefab: {fileID: -1801221220459304623, guid: 7f586d8c808dd8d4e8dc8f32bb747f12,
-    type: 3}
+  blockingTileTypes: 04000000
   noiseScale: 15
   heightLevelMin: 0.7
   heightLevelMax: 1
