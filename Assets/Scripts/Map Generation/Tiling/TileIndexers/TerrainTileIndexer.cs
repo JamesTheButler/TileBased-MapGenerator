@@ -104,13 +104,13 @@ public class TerrainTileIndexer : BaseTileIndexer {
     }
 
     private Sprite ResolveCenterPiece(int vicinityFlag, int cornerId) {
-        if (cornerId == 0)
+        if (cornerId == 7)
             return InnerCornerTopLeftSprite;
-        if (cornerId == 1)
+        if (cornerId == 11)
             return InnerCornerTopRightSprite;
-        if (cornerId == 2)
+        if (cornerId == 13)
             return InnerCornerBottomLeftSprite;
-        if (cornerId == 3)
+        if (cornerId == 14)
             return InnerCornerBottomRightSprite;
         // for all other cases
         return CenterSprite;
