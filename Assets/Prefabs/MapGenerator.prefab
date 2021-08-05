@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1925871789943166488}
   - component: {fileID: 1925356992655747850}
   - component: {fileID: 1925854878738186718}
+  - component: {fileID: 22521158471091164}
   - component: {fileID: 1958265519869857604}
   m_Layer: 0
   m_Name: MapGenerator
@@ -146,7 +147,6 @@ MonoBehaviour:
   noiseScale: 25
   heightLevelMin: 0
   heightLevelMax: 0.253
-  debugNoiseQuad: {fileID: 0}
 --- !u!114 &1925871789943166488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +166,6 @@ MonoBehaviour:
   noiseScale: 25
   heightLevelMin: 0.636
   heightLevelMax: 1
-  debugNoiseQuad: {fileID: 0}
 --- !u!114 &1925356992655747850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +185,6 @@ MonoBehaviour:
   noiseScale: 15
   heightLevelMin: 0.617
   heightLevelMax: 1
-  debugNoiseQuad: {fileID: 0}
 --- !u!114 &1925854878738186718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +204,23 @@ MonoBehaviour:
   tileCount: 15
   useSegmentation: 1
   quadrantBlockedLimit: 25
+--- !u!114 &22521158471091164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957325759755068424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1f4ca6bf6116e49934368271821c02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileType: 7
+  IsEnabled: 1
+  seed: 0
+  blockingTileTypes: 04000000
+  nodeType: 5
 --- !u!114 &1958265519869857604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,10 +234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileType: 7
-  IsEnabled: 1
+  IsEnabled: 0
   seed: 15
   blockingTileTypes: 04000000
   noiseScale: 15
   heightLevelMin: 0.7
   heightLevelMax: 1
-  debugNoiseQuad: {fileID: 0}

@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Uses the randomized grid algorithm to place evently distributed tiles.
+/// See for algorithm: https://github.com/JamesTheButler/PointDistribution/tree/master/src/Algorithms
+/// </summary>
 class EvenlyDistributedTileGenerator : BaseTileGenerator {
     public int tileCount;
     public bool useSegmentation;
@@ -16,12 +20,11 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
         return thisLayer;
     }
 
-    private void GenerateTiles(TileTypeMap tileTypeMap, int townCount,Vector2Int tileMapSize, ref bool[,] thisLayer) {
-        /*if (townCount == 0)
-            return;
-        flagMap = new bool[tileMapSize.x, tileMapSize.y];
-        List<Rect> quadrants = GetQuadrants(tileMapSize, townCount);
-        for (int i = 0; i < townCount; i++) {
+    private bool[,] GenerateTiles(TileTypeMap tileTypeMap, int tileCount, Vector2Int tileMapSize, ref bool[,] thisLayer) {
+        if (tileCount == 0) return thisLayer;
+
+        List<Rect> quadrants = GetQuadrants(tileMapSize, tileCount);
+        for (int i = 0; i < tileCount; i++) {
             int isQuadrantBlockedCounter = 0;
             Vector2Int tilePos;
             if (useSegmentation) {
@@ -32,16 +35,17 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
             }
 
             // avoid positions with blocking tiles
-            if (tilemap.HasAnyTileOnLayers(tilePos.x, tilePos.y, ignoredLayers)) {
+            if (tileTypeMap.HasAnyTileOnLayers(tilePos.x, tilePos.y, blockingTileTypes)) {
                 //skip quadrant if it is fully blocked
                 if (isQuadrantBlockedCounter <= quadrantBlockedLimit) {
                     i--;
                     isQuadrantBlockedCounter++;
                 }
             } else {
-                flagMap[tilePos.x, tilePos.y] = true;
+                thisLayer[tilePos.x, tilePos.y] = true;
             }
-        }*/
+        }
+        return thisLayer;
     }
 
     private int FindBestDivider(int number) {

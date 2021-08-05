@@ -15,8 +15,6 @@ public class RandomTileIndexer : BaseTileIndexer {
         tileCount = sprites.Length;
         tiles = new List<Tile>();
 
-        Debug.Log($"{spriteSheet} {tileCount}");
-
         foreach (var sprite in sprites) {
             Tile t = ScriptableObject.CreateInstance<Tile>();
             t.sprite = sprite;

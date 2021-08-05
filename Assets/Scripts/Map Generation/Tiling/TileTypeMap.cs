@@ -15,7 +15,22 @@ public class TileTypeMap {
     }
 
     public bool[,] GetLayer(TileType tileType) {
-        return (map.ContainsKey(tileType)) ? map[tileType] : null;
+        return (map.ContainsKey(tileType)) ? map[tileType] : new bool[size.x, size.y];
+    }
+
+    public List<Vector2Int> GetTiles(TileType tileType) {
+        var tiles = new List<Vector2Int>();
+        if (HasLayer(tileType)) {
+            var layer = GetLayer(tileType);
+            for (int i = 0; i < size.x; i++) {
+                for (int j = 0; j < size.y; j++) {
+                    if (layer[i, j]) {
+                        tiles.Add(new Vector2Int(i, j));
+                    }
+                }
+            }
+        }
+        return tiles;
     }
 
     public void SetLayer(TileType tileType, bool[,] layer) {

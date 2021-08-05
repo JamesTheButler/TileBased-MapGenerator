@@ -10,6 +10,9 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField] private SerializableDict_TileType_TileIndexer tileIndexers;
     [SerializeField] private SerializableDict_TileType_int tileLayerHeight;
 
+    public delegate void MapGenerationEvent(TileTypeMap tileTypeMap);
+    public static event MapGenerationEvent OnMapGenerationFinished;
+
     public Vector2Int dimensions;
 
     private TileTypeMap tileTypeMap;
@@ -41,6 +44,7 @@ public class MapGenerator : MonoBehaviour {
                 Instantiate(element.Value, transform).Index(tileMap, layer, tileLayerHeight[element.Key]);
             }
         }
+        OnMapGenerationFinished?.Invoke(tileTypeMap);
     }
 
     private int GenerateSeed() {

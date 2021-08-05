@@ -283,6 +283,26 @@ PrefabInstance:
       propertyPath: tileMap
       value: 
       objectReference: {fileID: 863097637}
+    - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: dimensions.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: dimensions.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: tileCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: IsEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1955334510103119796, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -343,7 +363,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapGenerator
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
+    - {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
 --- !u!1 &347018181
 GameObject:

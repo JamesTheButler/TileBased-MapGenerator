@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Map_Generation {
-    class MapGenerationUtility :MonoBehaviour {
+    class MapGenerationUtility : MonoBehaviour {
         private void RenderNoise(float[,] noise, Vector2Int tileMapSize, GameObject debugNoiseQuad) {
             if (debugNoiseQuad == null) return;
 
