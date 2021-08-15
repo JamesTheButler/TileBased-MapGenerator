@@ -8,5 +8,8 @@ public abstract class BaseTileGenerator : MonoBehaviour {
 
     public List<TileType> blockingTileTypes;
 
-    public abstract bool[,] GenerateTiles(TileTypeMap tileTypeMap);
+    public virtual bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
+        //Debug.Log($"TileGenerator for {tileType}");
+        return new bool[tileTypeMap.size.x, tileTypeMap.size.y];
+    }
 }

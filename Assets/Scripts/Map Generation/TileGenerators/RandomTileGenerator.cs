@@ -9,7 +9,7 @@ public class RandomTileGenerator : BaseTileGenerator {
     /// Generates tiles according to the specified heightmap and the cut of value;
     /// </summary>
     public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
-        var thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
+        var thisLayer = base.GenerateTiles(tileTypeMap);
 
         if (!IsEnabled) return thisLayer;
         if (propability == 0.0f) return thisLayer;

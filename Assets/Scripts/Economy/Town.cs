@@ -1,5 +1,8 @@
-﻿public class Town/* : IIntervalListener*/{
+﻿using UnityEngine;
+
+public class Town{
     public string Name { get; set; }
+    public Vector2Int Coordinates { get; set; }
 
     int _population;
     public int Population {
@@ -61,11 +64,12 @@
 
     public Town(string name,
                 int population,
+                Vector2Int coordinates,
                 CommodityDict stock,
-                CommodityDict consumption,
-                CommodityDict production) {
+                CommodityDict consumption, CommodityDict production) {
         Name = name;
         Population = population;
+        Coordinates = coordinates;
         Stock = stock;
         Consumption = consumption;
         Production = production;

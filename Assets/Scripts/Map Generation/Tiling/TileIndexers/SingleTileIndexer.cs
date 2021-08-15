@@ -15,6 +15,7 @@ public class SingleTileIndexer : BaseTileIndexer {
     }
 
     public override void Index(Tilemap tilemap, bool[,] flagMap, int tileLayer) {
+        base.Index(tilemap, flagMap, tileLayer);
         for (int x = 0; x < flagMap.GetLength(0); x++) {
             for (int y = 0; y < flagMap.GetLength(1); y++) {
                 if (flagMap[x, y]) {

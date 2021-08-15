@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Convenience.Collections.Arrays;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TileTypeMap {
@@ -52,5 +53,32 @@ public class TileTypeMap {
                 return true;
         }
         return false;
+    }
+
+    //TODO: get this from somewhere else
+    private Dictionary<TileType, double> typeToCostDict = new Dictionary<TileType, double>() {
+        { TileType.GRASS, 1 },
+        { TileType.WATER, 100 },
+        { TileType.MOUNTAIN, 10 },
+        { TileType.FOREST, 5 },
+    };
+    
+    private double GetCost(TileType type) {
+        return typeToCostDict[type];
+    }
+
+    public double[,] ToCostField() {
+        // Create and fill with GRASS cost
+        var costField = Array2DUtility.CreateArray(size.x, size.y, GetCost(TileType.GRASS));
+
+        foreach(var type in typeToCostDict.Keys) {
+            // skip GRASS
+            if (type == TileType.GRASS) { continue; }    
+
+            var layer = GetLayer(type);
+            costField.MaskedFill(typeToCostDict[type], layer);
+        }
+
+        return costField;
     }
 }

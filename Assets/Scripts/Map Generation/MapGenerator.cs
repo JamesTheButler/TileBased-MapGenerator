@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,6 +11,9 @@ public class MapGenerator : MonoBehaviour {
 
     public delegate void MapGenerationEvent(TileTypeMap tileTypeMap);
     public static event MapGenerationEvent OnMapGenerationFinished;
+
+    public delegate void NeighborsGeneratedEvent(Dictionary<Vector2Int, List<Vector2Int>> neighbors);
+    public static event NeighborsGeneratedEvent OnNeighborsGenerated;
 
     public Vector2Int dimensions;
 
@@ -28,23 +30,32 @@ public class MapGenerator : MonoBehaviour {
     private void Start() {
         if (generateRandomSeed)
             seed = GenerateSeed();
-        Debug.Log("Map Seed: " + seed);
+        Debug.LogWarning("Map Seed: " + seed);
         UnityEngine.Random.InitState(seed);
         foreach (var tileGenerator in tileGenerators) {
-            if (tileGenerator == null)
-                continue;
+            if (tileGenerator == null || !tileGenerator.IsEnabled) { continue; }
+
+            if (tileGenerator is PathingTileGenerator generator && tileGenerator.tileType == TileType.ROAD) {
+                generator.OnNeighborsGenerated += InvokeOnNeighborsGenerated;
+            }
             tileGenerator.seed = GenerateSeed();
             var layer = tileGenerator.GenerateTiles(tileTypeMap);
             tileTypeMap.SetLayer(tileGenerator.tileType, layer);
         }
-        foreach (var element in tileIndexers) {
-            if (tileTypeMap.HasLayer(element.Key)) {
-                var layer = tileTypeMap.GetLayer(element.Key);
-                // create tile indexer and index
-                Instantiate(element.Value, transform).Index(tileMap, layer, tileLayerHeight[element.Key]);
+
+        foreach (var tileType in tileIndexers.Keys) {
+            if (tileTypeMap.HasLayer(tileType)) {
+                var layer = tileTypeMap.GetLayer(tileType);
+                // create tile indexer and index tiles
+                Instantiate(tileIndexers[tileType], transform).Index(tileMap, layer, tileLayerHeight[tileType]);
             }
         }
+
         OnMapGenerationFinished?.Invoke(tileTypeMap);
+    }
+
+    private void InvokeOnNeighborsGenerated(Dictionary<Vector2Int, List<Vector2Int>> neighbors) {
+        OnNeighborsGenerated?.Invoke(neighbors);
     }
 
     private int GenerateSeed() {

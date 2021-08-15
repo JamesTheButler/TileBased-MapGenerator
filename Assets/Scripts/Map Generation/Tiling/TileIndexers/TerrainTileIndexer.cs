@@ -20,6 +20,7 @@ public class TerrainTileIndexer : BaseTileIndexer {
     public Sprite InnerCornerBottomLeftSprite;
 
     public override void Index(Tilemap tilemap, bool[,] flagMap, int tileLayer) {
+        base.Index(tilemap, flagMap, tileLayer);
         // Generate vicinity map
         int[,] vicinityMap = GetVicinityMap(flagMap);
         for (int x = 0; x < flagMap.GetLength(0); x++) {

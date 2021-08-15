@@ -1,6 +1,6 @@
 ﻿public class TestTileGenerator : BaseTileGenerator {
     public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
-        var thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
+        var thisLayer = base.GenerateTiles(tileTypeMap);
 
         if (!IsEnabled) return thisLayer;
 

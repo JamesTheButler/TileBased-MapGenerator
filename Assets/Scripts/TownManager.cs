@@ -4,45 +4,41 @@ using UnityEngine;
 public class TownManager : MonoBehaviour {
     [SerializeField] GameObject townInfoPanelPrefab;
 
-    private List<Town> towns = new List<Town>();
+    private readonly List<Town> towns = new List<Town>();
+    private readonly Dictionary<Vector2Int, Town> townPositions = new Dictionary<Vector2Int, Town>();
 
-    private Dictionary<Vector2Int, Town> townPositions = new Dictionary<Vector2Int, Town>();
-
-    //public delegate void Tick();
-    //public static event Tick OnTownTick;
-
-    //[SerializeField] float townStockUpdateInterval = 1f;
-    //[SerializeField] float townPopulationGrowthInterval = 5f;
-    //private float lastUpdateTime = 0;
-
-    CommodityDict defaultConsumption = new CommodityDict() {
+    // TODO: Move these to new component "TownDataGenerator"
+    readonly CommodityDict defaultConsumption = new CommodityDict() {
             { Commodity.FISH, 0.2 },
             { Commodity.WINE, 0.2 },
             { Commodity.WOOD, 0.2 }
         };
-
-    CommodityDict defaultStock = new CommodityDict {
+    readonly CommodityDict defaultStock = new CommodityDict {
             { Commodity.FISH, 20 },
             { Commodity.WINE, 20 },
             { Commodity.WOOD, 20 }
         };
-
-    CommodityDict defaultProduction = new CommodityDict {
+    readonly CommodityDict defaultProduction = new CommodityDict {
             { Commodity.WOOD, 0.5 }
         };
 
+    private void Awake() {
+        MapGenerator.OnMapGenerationFinished += GenerateTowns;
+        MapGenerator.OnNeighborsGenerated += SetNeighbors;
+    }
 
     void Start() {
-        //towns.Add(new Town("Ebersbach", 2000, defaultStock, defaultConsumption, new CommodityDict(Commodity.FISH, 0.5)));
-        //towns.Add(new Town("Lauterbach", 200, defaultStock, defaultConsumption, new CommodityDict(Commodity.WOOD, 0.5)));
-        //towns.Add(new Town("Kalkreuth", 1000, defaultStock, defaultConsumption, new CommodityDict(Commodity.WINE, 0.5)));
+        /*
+        towns.Add(new Town("Ebersbach", 2000, defaultStock, defaultConsumption, new CommodityDict(Commodity.FISH, 0.5)));
+        towns.Add(new Town("Lauterbach", 200, defaultStock, defaultConsumption, new CommodityDict(Commodity.WOOD, 0.5)));
+        towns.Add(new Town("Kalkreuth", 1000, defaultStock, defaultConsumption, new CommodityDict(Commodity.WINE, 0.5)));
 
         foreach (var town in towns) {
-            //var infoPanel = Instantiate(townInfoPanelPrefab, transform).GetComponent<TownInfoPanel>();
-            //infoPanel.ConnectTown(town);
-            //town.TriggerAllEvents();
+            var infoPanel = Instantiate(townInfoPanelPrefab, transform).GetComponent<TownInfoPanel>();
+            infoPanel.ConnectTown(town);
+            town.TriggerAllEvents();
         }
-        MapGenerator.OnMapGenerationFinished += GenerateTowns;
+        */
     }
 
     public Town GetTown(Vector2Int position) {
@@ -58,15 +54,17 @@ public class TownManager : MonoBehaviour {
         this.neighbors = neighbors;
     }
 
-
+    // TODO: Move this to new component "TownDataGenerator"
     private void GenerateTowns(TileTypeMap tileTypeMap) {
+        Debug.Log($"TownManager.GenerateTowns -- ");
         var townTiles = tileTypeMap.GetTiles(TileType.TOWN);
         var names = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (int i = 0; i < Mathf.Min(names.Length, townTiles.Count); i++) {
-            var town = new Town(names[i] + "", 500, defaultStock, defaultProduction, defaultConsumption);
+            var town = new Town(names[i] + "", 500, townTiles[i], defaultStock, defaultProduction, defaultConsumption);
             towns.Add(town);
             townPositions.Add(townTiles[i], town);
         }
+
         foreach (var entry in neighbors) {
             var output = $"{GetTown(entry.Key).Name} -";
             foreach (var val in entry.Value) {
