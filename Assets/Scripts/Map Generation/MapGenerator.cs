@@ -30,7 +30,7 @@ public class MapGenerator : MonoBehaviour {
     private void Start() {
         if (generateRandomSeed)
             seed = GenerateSeed();
-        Debug.LogWarning("Map Seed: " + seed);
+        Debug.Log("Map Seed: " + seed);
         UnityEngine.Random.InitState(seed);
         foreach (var tileGenerator in tileGenerators) {
             if (tileGenerator == null || !tileGenerator.IsEnabled) { continue; }

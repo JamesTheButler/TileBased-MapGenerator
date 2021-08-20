@@ -502,7 +502,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: neighborRadius
-      value: 12
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -518,6 +518,11 @@ PrefabInstance:
         type: 3}
       propertyPath: tileType
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: PATHCOST
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924446827238093972, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -627,7 +632,7 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileIndexers.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -687,17 +692,17 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileIndexers.reorderableList.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileLayerHeight.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileLayerHeight.reorderableList.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -948,12 +953,22 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.x
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.y
-      value: 50
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: generateRandomSeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: seed
+      value: 1616
       objectReference: {fileID: 0}
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -978,7 +993,7 @@ PrefabInstance:
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: IsEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -998,7 +1013,7 @@ PrefabInstance:
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileCount
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1018,7 +1033,7 @@ PrefabInstance:
     - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: IsEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1028,7 +1043,7 @@ PrefabInstance:
     - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: IsEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1955334510103119796, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1115,7 +1130,8 @@ PrefabInstance:
       propertyPath: noiseScale
       value: 15
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1958265519869857604, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
 --- !u!1 &709525866
 GameObject:

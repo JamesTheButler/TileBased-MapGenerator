@@ -51,6 +51,7 @@ public class TownManager : MonoBehaviour {
     private Dictionary<Vector2Int, List<Vector2Int>> neighbors = new Dictionary<Vector2Int, List<Vector2Int>>();
 
     public void SetNeighbors(Dictionary<Vector2Int, List<Vector2Int>> neighbors) {
+        Debug.Log($"TownManager.setNeighbors -- received neighbors for {neighbors.Count} towns.");
         this.neighbors = neighbors;
     }
 
