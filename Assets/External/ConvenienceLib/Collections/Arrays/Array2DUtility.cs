@@ -1,4 +1,8 @@
-﻿namespace Convenience.Collections.Arrays {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Convenience.Collections.Arrays {
     public static class Array2DUtility {
         /// <summary>
         /// Creates and returns an array.
@@ -55,6 +59,26 @@
                     if (mask[i, j]) { array[i, j] = value; }
                 }
             }
+        }
+
+        public static T[,] MergeArrays<T>(IEnumerable<T[,]> arrays, Func<T, T, T> mergeFunction) {
+            var mergedArray = arrays.ElementAt(0).Clone() as T[,];
+            for (int i = 1; i < arrays.Count(); i++) {
+                mergedArray = MergeArrays(mergedArray, arrays.ElementAt(i), mergeFunction);
+            }
+            return mergedArray;
+        }
+
+        public static T[,] MergeArrays<T>(T[,] arr1, T[,] arr2, Func<T,T,T> mergeFunction) {
+            if (arr1.GetLength(0) != arr2.GetLength(0) || arr1.GetLength(1) != arr2.GetLength(1)) return arr1;
+
+            var mergedArray = new T[arr1.GetLength(0), arr2.GetLength(1)];
+            for (int x = 0; x < arr1.GetLength(0); x++) {
+                for (int y = 0; y < arr1.GetLength(1); y++) {
+                    mergedArray[x, y] = mergeFunction(arr1[x, y], arr2[x, y]);
+                }
+            }
+            return mergedArray;
         }
 
         public static string ToString<T>(T[,] array) {

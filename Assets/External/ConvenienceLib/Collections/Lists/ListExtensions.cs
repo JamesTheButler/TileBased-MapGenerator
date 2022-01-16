@@ -5,7 +5,7 @@ using System.Linq;
 namespace Convenience.Collections.Lists {
     //TODO: adjust seeding
     public static class ListExtensions {
-        // TODO move this to Array1DExteionsn
+        // TODO move this to Array1DExtension
         // TODO keep same format
         /// <summary>
         /// Fisher-Yates shuffle.

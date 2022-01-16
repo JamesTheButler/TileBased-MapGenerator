@@ -67,11 +67,11 @@ public class TownManager : MonoBehaviour {
         }
 
         foreach (var entry in neighbors) {
-            var output = $"{GetTown(entry.Key).Name} -";
+            var neighborSet = $"{GetTown(entry.Key).Name} -";
             foreach (var val in entry.Value) {
-                output += $" {GetTown(val).Name},";
+                neighborSet += $" {GetTown(val).Name},";
             }
-            Debug.Log(output);
+            Debug.Log(neighborSet);
         }
     }
 }

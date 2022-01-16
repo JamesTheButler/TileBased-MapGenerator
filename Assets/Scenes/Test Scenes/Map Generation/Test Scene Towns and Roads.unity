@@ -177,7 +177,7 @@ Camera:
   far clip plane: 1000
   field of view: 90
   orthographic: 1
-  orthographic size: 55
+  orthographic size: 27
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -278,6 +278,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: neighborRadius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: heuristicType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileMap
@@ -292,6 +302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: dimensions.y
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: generateRandomSeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -365,6 +380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
+    - {fileID: 1958265519869857604, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
     - {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 63a624c5e6acfa742ac18a60cc6b006a, type: 3}
 --- !u!1 &347018181

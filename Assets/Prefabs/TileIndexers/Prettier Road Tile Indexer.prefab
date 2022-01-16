@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1034588202076572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4208951224042900}
+  - component: {fileID: -1801221220459304623}
+  m_Layer: 0
+  m_Name: Prettier Road Tile Indexer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4208951224042900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034588202076572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1801221220459304623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034588202076572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695f7f65bedd9dd499b587688b8e0680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Center: {fileID: -7765856634330323922, guid: 89f18746ee991614abcf76ef16f719d8, type: 3}
+  Default: {fileID: -2056183421091898765, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  TSectionTop: {fileID: -2656324371522367893, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  TSectionRight: {fileID: 5543096550932034755, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  TSectionBottom: {fileID: -6695753460610039031, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  TSectionLeft: {fileID: -2629896889185678554, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  CornerTopRight: {fileID: 4369560171034777531, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  CornerBottomRight: {fileID: -8537098635269674396, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  CornerTopLeft: {fileID: -1396483287286313306, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  CornerBottomLeft: {fileID: -5645821627479344306, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  DeadEndTop: {fileID: 2845323023125515899, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  DeadEndLeft: {fileID: -6636152960094880243, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  DeadEndRight: {fileID: 2099455033358561672, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  DeadEndBottom: {fileID: 705243467752562521, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  Horizontal: {fileID: 7562056680135774178, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}
+  Vertical: {fileID: 1783640835874756645, guid: 89f18746ee991614abcf76ef16f719d8,
+    type: 3}

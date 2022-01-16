@@ -1,6 +1,5 @@
 ﻿using Convenience.Collections.Lists;
 using Convenience.Extensions;
-using Convenience.Geometry;
 using Pathfinding.AStar;
 using Pathfinding.General;
 using System;
@@ -16,6 +15,8 @@ public class PathingTileGenerator : BaseTileGenerator {
 
     //TODO: get from somewhere?
     public float PATHCOST = 0.5f;
+
+    public HeuristicType heuristicType;
 
     public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
         var thisLayer = base.GenerateTiles(tileTypeMap);
@@ -48,13 +49,20 @@ public class PathingTileGenerator : BaseTileGenerator {
         Debug.Log(paths.Aggregate("Paths BEFORE: ", (arg1, arg2) => arg1 + $"<{arg2.Item1}|{arg2.Item2}>"));
         paths.Shuffle(seed);
         Debug.Log(paths.Aggregate("Paths AFTER: ", (arg1, arg2) => arg1 + $"<{arg2.Item1}|{arg2.Item2}>"));
+        Heuristic heuristic;
+        if(heuristicType == HeuristicType.MANHATTAN) {
+            heuristic = new ManhattanHeuristic();
+        }else {
+            heuristic = new StraightLineHeuristic();
+        }
+        
         int i = 0;
         foreach (var entry in paths) {
             i++;
             var start = entry.Item1.ToPoint2D();
             var end = entry.Item2.ToPoint2D();
 
-            var astar = new AStarSearch(gridMap, start, end);
+            var astar = new AStarSearch(gridMap, start, end, heuristic);
             var path = astar.GetPath().ConvertAll(node => new Vector2Int(node.Coordinates.X, node.Coordinates.Y));
 
             var intField = gridMap.GetCostField();

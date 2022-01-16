@@ -7,9 +7,12 @@ using UnityEngine;
 
 namespace Pathfinding.AStar {
     public class AStarSearch : BaseSearch {
-        public AStarSearch(GridTree2D map, Point2D startNode, Point2D endNode) : base(map, startNode, endNode) {
+        public AStarSearch(GridTree2D map, Point2D startNode, Point2D endNode, Heuristic heuristic) : base(map, startNode, endNode) {
+            this.heuristic = heuristic;
             Search();
         }
+
+        private readonly Heuristic heuristic;
 
         public List<Node> GetPath() { return GetPath(out _); }
 
@@ -54,7 +57,7 @@ namespace Pathfinding.AStar {
             Console.WriteLine($"HEURISTIC:\n {s}");
             try {
                 startNode = Map.Nodes[StartPosition.X, StartPosition.Y];
-            } catch (Exception e) {
+            } catch (Exception) {
                 throw new Exception("start node must be inside the map");
             }
 
@@ -96,11 +99,9 @@ namespace Pathfinding.AStar {
 
         private double[,] SetupHeuristics() {
             double[,] heuristicMap = new double[Map.Nodes.GetLength(0), Map.Nodes.GetLength(1)];
-            //var h = new ManhattanHeuristic();
-            var h = new StraightLineHeuristic();
             for (int i = 0; i < Map.Nodes.GetLength(0); i++) {
                 for (int j = 0; j < Map.Nodes.GetLength(1); j++) {
-                    heuristicMap[i, j] = h.Calculate(Map.Nodes[i, j].Coordinates, EndPosition);
+                    heuristicMap[i, j] = heuristic.Calculate(Map.Nodes[i, j].Coordinates, EndPosition);
                 }
             }
             return heuristicMap;
