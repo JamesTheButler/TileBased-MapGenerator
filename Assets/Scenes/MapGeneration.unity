@@ -734,12 +734,12 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileLayerHeight.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileLayerHeight.reorderableList.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -945,7 +945,7 @@ PrefabInstance:
         type: 3}
       propertyPath: tileIndexers._values.Array.data[5]
       value: 
-      objectReference: {fileID: -1801221220459304623, guid: ace7e9bd51119354cb5ed7c3cdd0e919,
+      objectReference: {fileID: -1801221220459304623, guid: 3f380ef32370ac3469261496415f7b97,
         type: 3}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1000,7 +1000,7 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: generateRandomSeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}

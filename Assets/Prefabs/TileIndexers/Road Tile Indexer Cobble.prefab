@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1034588202076572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4208951224042900}
+  - component: {fileID: -1801221220459304623}
+  m_Layer: 0
+  m_Name: Road Tile Indexer Cobble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4208951224042900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034588202076572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1801221220459304623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034588202076572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695f7f65bedd9dd499b587688b8e0680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Center: {fileID: -3574076059849021458, guid: 7557a90f207c66948922141924391842, type: 3}
+  Default: {fileID: -7543333732107224989, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  TSectionTop: {fileID: 5900539283685697775, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  TSectionRight: {fileID: -3756500445218321620, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  TSectionBottom: {fileID: -4899061930042074366, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  TSectionLeft: {fileID: -6955869197936274927, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  CornerTopRight: {fileID: 1614045672189167413, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  CornerBottomRight: {fileID: 3181986238805742790, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  CornerTopLeft: {fileID: 9083543919170746488, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  CornerBottomLeft: {fileID: 9199921177197931302, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  DeadEndTop: {fileID: -6208353329603383742, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  DeadEndLeft: {fileID: -7851603131715509632, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  DeadEndRight: {fileID: -7290908958033448218, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  DeadEndBottom: {fileID: 8871164711455934082, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  Horizontal: {fileID: 7429236027451088831, guid: 7557a90f207c66948922141924391842,
+    type: 3}
+  Vertical: {fileID: 3437413864459699210, guid: 7557a90f207c66948922141924391842,
+    type: 3}

@@ -28,8 +28,9 @@ public class MapGenerator : MonoBehaviour {
     }
 
     private void Start() {
-        if (generateRandomSeed)
+        if (generateRandomSeed) {
             seed = GenerateSeed();
+        }
         Debug.Log("Map Seed: " + seed);
         UnityEngine.Random.InitState(seed);
         foreach (var tileGenerator in tileGenerators) {

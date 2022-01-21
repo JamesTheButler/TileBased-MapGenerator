@@ -221,6 +221,9 @@ MonoBehaviour:
   seed: 0
   blockingTileTypes: 04000000
   nodeType: 5
+  neighborRadius: 0
+  PATHCOST: 0.5
+  heuristicType: 0
 --- !u!114 &1958265519869857604
 MonoBehaviour:
   m_ObjectHideFlags: 0
