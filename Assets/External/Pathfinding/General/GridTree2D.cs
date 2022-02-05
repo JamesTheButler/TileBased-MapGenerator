@@ -90,7 +90,7 @@ namespace Pathfinding.General {
                             Node currNode = Nodes[x, y];
                             Node adjNode = Nodes[adjPos.X, adjPos.Y];
                             if (!currNode.IsConnected(adjNode) && currNode.Cost != -1 && adjNode.Cost != -1) {
-                                var edge = new Edge((currNode.Cost + adjNode.Cost) / 2.0, currNode, adjNode);
+                                var edge = new Edge((currNode.Cost + adjNode.Cost) / 2.0f, currNode, adjNode);
                                 currNode.Edges.Add(edge);
                                 adjNode.Edges.Add(edge);
                             }
@@ -103,7 +103,7 @@ namespace Pathfinding.General {
         /// <summary>
         /// Updates all node costs.
         /// </summary>
-        public void Update(double[,] newCosts) {
+        public void Update(float[,] newCosts) {
             if (newCosts.GetLength(0) != Nodes.GetLength(0) || newCosts.GetLength(1) != Nodes.GetLength(1))
                 return;
 
@@ -114,8 +114,8 @@ namespace Pathfinding.General {
             }
         }
 
-        public double[,] GetCostField() {
-            var costs = new double[Nodes.GetLength(0), Nodes.GetLength(1)];
+        public float[,] GetCostField() {
+            var costs = new float[Nodes.GetLength(0), Nodes.GetLength(1)];
             for (int i = 0; i < costs.GetLength(0); i++) {
                 for (int j = 0; j < costs.GetLength(1); j++) {
                     costs[i, j] = Nodes[i, j].Cost;

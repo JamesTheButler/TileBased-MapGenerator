@@ -53,15 +53,15 @@ public class TownInfoPanel : MonoBehaviour {
 
         // update list view
         foreach (var commodity in commodityList) {
-            var amount = stock.ContainsKey(commodity) ? stock[commodity] : 0.0;
-            var consumption = this.consumption.ContainsKey(commodity) ? this.consumption[commodity] : 0.0;
-            var production = this.production.ContainsKey(commodity) ? this.production[commodity] : 0.0;
+            var amount = stock.ContainsKey(commodity) ? stock[commodity] : 0.0f;
+            var consumption = this.consumption.ContainsKey(commodity) ? this.consumption[commodity] : 0.0f;
+            var production = this.production.ContainsKey(commodity) ? this.production[commodity] : 0.0f;
 
             if (!listDict.ContainsKey(commodity)) {
                 var newItem = Instantiate(stockListItemPrefab, stockListGO.transform);
                 listDict.Add(commodity, newItem.GetComponent<TownInfoStockListItem>());
             }
-            listDict[commodity].UpdateListItem(commodity.ToString(), amount, production, consumption, production - consumption, 999.9);
+            listDict[commodity].UpdateListItem(commodity.ToString(), amount, production, consumption, production - consumption, 999.9f);
         }
     }
 

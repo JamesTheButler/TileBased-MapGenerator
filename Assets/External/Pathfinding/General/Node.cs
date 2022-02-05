@@ -7,21 +7,21 @@ namespace Pathfinding.General {
     public class Node {
         public List<Edge> Edges { get; set; }
         public Point2D Coordinates { get; private set; }
-        public double Cost { get; set; }
+        public float Cost { get; set; }
         public Node NearestNodeToStart { get; set; }
-        public double MinCostToStart { get; set; }
+        public float MinCostToStart { get; set; }
         public bool WasVisited { get; set; }
         public Guid Id { get; set; }
 
         public Node() {
             NearestNodeToStart = null;
-            MinCostToStart = double.MaxValue;
+            MinCostToStart = float.MaxValue;
             Id = Guid.NewGuid();
             Edges = new List<Edge>();
             Coordinates = new Point2D(-1, -1);
         }
 
-        public Node(int x, int y, double cost = 0) : this() {
+        public Node(int x, int y, float cost = 0) : this() {
             Coordinates = new Point2D(x, y);
             Cost = cost;
         }

@@ -7,12 +7,12 @@ public class TownInfoStockListItem : MonoBehaviour {
     [SerializeField] private GameObject amountChangeText;
     [SerializeField] private GameObject priceText;
 
-    public void UpdateListItem(string name, double amount, double production, double consumption, double totalChange, double price) {
+    public void UpdateListItem(string name, float amount, float production, float consumption, float totalChange, float price) {
         UiUtility.SetUiText(nameText, name);
-        UiUtility.SetUiText(amountText, FormateDouble(amount));
-        UiUtility.SetUiText(amountChangeText, $"{FormateDouble(totalChange)}(+{FormateDouble(production)} / -{FormateDouble(consumption)})");
-        UiUtility.SetUiText(priceText, FormateDouble(price));
+        UiUtility.SetUiText(amountText, FormateFloat(amount));
+        UiUtility.SetUiText(amountChangeText, $"{FormateFloat(totalChange)}(+{FormateFloat(production)} / -{FormateFloat(consumption)})");
+        UiUtility.SetUiText(priceText, FormateFloat(price));
     }
 
-    private string FormateDouble(double d) { return d.ToString("0.0"); }
+    private string FormateFloat(float d) { return d.ToString("0.0"); }
 }

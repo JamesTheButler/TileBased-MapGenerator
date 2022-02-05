@@ -2,6 +2,6 @@
 
 namespace Pathfinding.AStar {
     public interface Heuristic {
-        double Calculate(Point2D position, Point2D destination);
+        float Calculate(Point2D position, Point2D destination);
     }
 }

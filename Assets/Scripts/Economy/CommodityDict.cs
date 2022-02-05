@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-public class CommodityDict : Dictionary<Commodity, double> {
+public class CommodityDict : Dictionary<Commodity, float> {
     public CommodityDict() { }
-    public CommodityDict(Commodity commodity, double count) {
+    public CommodityDict(Commodity commodity, float count) {
         Add(commodity, count);
     }
     public CommodityDict(CommodityDict toClone) {

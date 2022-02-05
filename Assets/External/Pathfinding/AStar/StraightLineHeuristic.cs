@@ -1,10 +1,10 @@
 ﻿using Convenience.Geometry;
-using System;
+using UnityEngine;
 
 namespace Pathfinding.AStar {
     public class StraightLineHeuristic : Heuristic {
-        public double Calculate(Point2D position, Point2D destination) {
-            return Math.Sqrt(Math.Pow(position.X - destination.X, 2) + Math.Pow(position.Y - destination.Y, 2));
+        public float Calculate(Point2D position, Point2D destination) {
+            return Mathf.Sqrt(Mathf.Pow(position.X - destination.X, 2) + Mathf.Pow(position.Y - destination.Y, 2));
         }
     }
 }

@@ -14,6 +14,6 @@ namespace Pathfinding.General {
             EndPosition = endNode;
         }
 
-        public abstract List<Node> GetPath(out double shortestPathCost);
+        public abstract List<Node> GetPath(out float shortestPathCost);
     }
 }

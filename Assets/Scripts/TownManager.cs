@@ -9,9 +9,9 @@ public class TownManager : MonoBehaviour {
 
     // TODO: Move these to new component "TownDataGenerator"
     readonly CommodityDict defaultConsumption = new CommodityDict() {
-            { Commodity.FISH, 0.2 },
-            { Commodity.WINE, 0.2 },
-            { Commodity.WOOD, 0.2 }
+            { Commodity.FISH, 0.2f },
+            { Commodity.WINE, 0.2f },
+            { Commodity.WOOD, 0.2f }
         };
     readonly CommodityDict defaultStock = new CommodityDict {
             { Commodity.FISH, 20 },
@@ -19,7 +19,7 @@ public class TownManager : MonoBehaviour {
             { Commodity.WOOD, 20 }
         };
     readonly CommodityDict defaultProduction = new CommodityDict {
-            { Commodity.WOOD, 0.5 }
+            { Commodity.WOOD, 0.5f }
         };
 
     private void Awake() {
@@ -29,9 +29,9 @@ public class TownManager : MonoBehaviour {
 
     void Start() {
         /*
-        towns.Add(new Town("Ebersbach", 2000, defaultStock, defaultConsumption, new CommodityDict(Commodity.FISH, 0.5)));
-        towns.Add(new Town("Lauterbach", 200, defaultStock, defaultConsumption, new CommodityDict(Commodity.WOOD, 0.5)));
-        towns.Add(new Town("Kalkreuth", 1000, defaultStock, defaultConsumption, new CommodityDict(Commodity.WINE, 0.5)));
+        towns.Add(new Town("Ebersbach", 2000, defaultStock, defaultConsumption, new CommodityDict(Commodity.FISH, 0.5f)));
+        towns.Add(new Town("Lauterbach", 200, defaultStock, defaultConsumption, new CommodityDict(Commodity.WOOD, 0.5f)));
+        towns.Add(new Town("Kalkreuth", 1000, defaultStock, defaultConsumption, new CommodityDict(Commodity.WINE, 0.5f)));
 
         foreach (var town in towns) {
             var infoPanel = Instantiate(townInfoPanelPrefab, transform).GetComponent<TownInfoPanel>();

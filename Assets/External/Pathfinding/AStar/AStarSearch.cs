@@ -16,7 +16,7 @@ namespace Pathfinding.AStar {
 
         public List<Node> GetPath() { return GetPath(out _); }
 
-        public override List<Node> GetPath(out double shortestPathCost) {
+        public override List<Node> GetPath(out float shortestPathCost) {
             Point2D endPoint = EndPosition;
             Node node = Map.Nodes[endPoint.X, endPoint.Y];
             List<Node> path = new List<Node>();
@@ -44,7 +44,7 @@ namespace Pathfinding.AStar {
         }
 
         private void Search() {
-            double[,] heuristicMap = SetupHeuristics();
+            float[,] heuristicMap = SetupHeuristics();
 
             string s = "";
             for (int i = 0; i < heuristicMap.GetLength(1); i++) {
@@ -97,8 +97,8 @@ namespace Pathfinding.AStar {
             } while (priorityQueue.Count > 0);
         }
 
-        private double[,] SetupHeuristics() {
-            double[,] heuristicMap = new double[Map.Nodes.GetLength(0), Map.Nodes.GetLength(1)];
+        private float[,] SetupHeuristics() {
+            float[,] heuristicMap = new float[Map.Nodes.GetLength(0), Map.Nodes.GetLength(1)];
             for (int i = 0; i < Map.Nodes.GetLength(0); i++) {
                 for (int j = 0; j < Map.Nodes.GetLength(1); j++) {
                     heuristicMap[i, j] = heuristic.Calculate(Map.Nodes[i, j].Coordinates, EndPosition);
