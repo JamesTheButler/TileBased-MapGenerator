@@ -22,7 +22,7 @@ namespace Pathfinding.General {
             }
         }
 
-        public GridTree2D(double[,] nodeCosts) {
+        public GridTree2D(float[,] nodeCosts) {
             Width = nodeCosts.GetLength(0);
             Height = nodeCosts.GetLength(1);
             Nodes = new Node[Width, Height];

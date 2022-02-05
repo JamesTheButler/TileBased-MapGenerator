@@ -1,4 +1,5 @@
-﻿using Convenience.Collections.Lists;
+﻿using Convenience.Collections.Arrays;
+using Convenience.Collections.Lists;
 using Convenience.Extensions;
 using Pathfinding.AStar;
 using Pathfinding.General;
@@ -10,11 +11,10 @@ public class PathingTileGenerator : BaseTileGenerator {
     public TileType nodeType;
     public float neighborRadius;
     public bool enabled2x2Culling = false;
+    [SerializeField] private SerializableDict_TileType_float pathingCosts;
 
     public event MapGenerator.NeighborsGeneratedEvent OnNeighborsGenerated;
 
-    //TODO: get from somewhere? 
-    public float PATHCOST = 0.5f;
     public HeuristicType heuristicType;
 
     public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
@@ -25,10 +25,10 @@ public class PathingTileGenerator : BaseTileGenerator {
         // set up paths between nodes
         var nodeTiles = tileTypeMap.GetTiles(nodeType);
         var neighborDict = CreateNeighbors(nodeTiles);
-        var paths = ListDictToTupleList(neighborDict);
-        paths.Shuffle(seed);
+        var nodeConnections = ListDictToTupleList(neighborDict);
+        nodeConnections.Shuffle(seed);
 
-        // search
+        // search heuristic
         Heuristic heuristic;
         if (heuristicType == HeuristicType.MANHATTAN) {
             heuristic = new ManhattanHeuristic();
@@ -37,7 +37,7 @@ public class PathingTileGenerator : BaseTileGenerator {
         }
 
         // generate path tiles via AStarSearch
-        var pathTiles = GeneratePathTiles(tileTypeMap, paths, heuristic);
+        var pathTiles = GeneratePathTiles(tileTypeMap, nodeConnections, heuristic);
 
         // update layer
         foreach (var pathTile in pathTiles) {
@@ -51,9 +51,24 @@ public class PathingTileGenerator : BaseTileGenerator {
         return thisLayer;
     }
 
+    public float[,] GetTileTypeCostsMap(TileTypeMap tileTypeMap) {
+        // Create and fill with GRASS cost
+        var costField = Array2DUtility.CreateArray(tileTypeMap.size.x, tileTypeMap.size.y, pathingCosts[TileType.GRASS]);
+
+        foreach (var type in pathingCosts.Keys) {
+            // skip GRASS
+            if (type == TileType.GRASS) { continue; }
+
+            var layer = tileTypeMap.GetLayer(type);
+            costField.MaskedFill(pathingCosts[type], layer);
+        }
+
+        return costField;
+    }
+
     private List<Vector2Int> GeneratePathTiles(TileTypeMap tileTypeMap, List<Tuple<Vector2Int, Vector2Int>> paths, Heuristic heuristic) {
         var pathTiles = new List<Vector2Int>();
-        var gridMap = new GridTree2D(tileTypeMap.ToCostField());
+        var gridMap = new GridTree2D(GetTileTypeCostsMap(tileTypeMap));
         int i = 0;
         foreach (var entry in paths) {
             i++;
@@ -66,7 +81,7 @@ public class PathingTileGenerator : BaseTileGenerator {
             var intField = gridMap.GetCostField();
 
             foreach (var node in path) {
-                intField[node.x, node.y] = PATHCOST;
+                intField[node.x, node.y] = pathingCosts[TileType.ROAD];
             }
             gridMap.Update(intField);
             pathTiles.AddRange(path);
