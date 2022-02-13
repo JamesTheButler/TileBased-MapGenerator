@@ -68,19 +68,25 @@ namespace Convenience.Collections.Lists {
             return list.Count <= 0;
         }
 
+        //TODO: add to lib
+        public static T PopFirst<T>(this List<T> list) {
+            var first = list.First();
+            list.RemoveAt(0);
+            return first;
+        }
+
+        //TODO: add to lib
+        public static T PopLast<T>(this List<T> list) {
+            var last = list.Last();
+            list.RemoveAt(list.Count - 1);
+            return last;
+        }
+
+        //TODO: update in lib
         public static string AsString<T>(this List<T> list) {
             var s = $"List<{typeof(T)}>:[\n";
             foreach (var listElement in list) {
                 s += $"{listElement}\n";
-            }
-            s += "]";
-            return s;
-        }
-
-        public static string AsString<K, V>(this Dictionary<K, V> dict) {
-            var s = $"Dictionary<{typeof(K)},{typeof(V)}>:[\n";
-            foreach (var kvpair in dict) {
-                s += $"{kvpair.Key}:{kvpair.Value}\n";
             }
             s += "]";
             return s;

@@ -7,9 +7,7 @@ namespace Pathfinding.General {
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        public GridTree2D() : this(0, 0) { }
-
-        public GridTree2D(int width, int height) {
+        public GridTree2D(int width = 0, int height = 0) {
             Width = width;
             Height = height;
             Nodes = new Node[Width, Height];
@@ -44,19 +42,6 @@ namespace Pathfinding.General {
                 }
             }
             GenerateEdges();
-        }
-
-        /// <summary>
-        /// Resets the path information of each node.
-        /// </summary>
-        public void Reset() {
-            Nodes = new Node[Width, Height];
-            for (int i = 0; i < Width; i++) {
-                for (int j = 0; j < Height; j++) {
-                    Nodes[i, j].NearestNodeToStart = null;
-                    Nodes[i, j].MinCostToStart = 0;
-                }
-            }
         }
 
         /// <summary>
@@ -104,6 +89,9 @@ namespace Pathfinding.General {
             for (int i = 0; i < Nodes.GetLength(0); i++) {
                 for (int j = 0; j < Nodes.GetLength(1); j++) {
                     Nodes[i, j].Cost = newCosts[i, j];
+                    Nodes[i, j].NearestNodeToStart = null;
+                    Nodes[i, j].MinCostToStart = float.MaxValue;
+                    Nodes[i, j].WasVisited = false;
                 }
             }
         }

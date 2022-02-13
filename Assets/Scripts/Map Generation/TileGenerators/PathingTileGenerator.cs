@@ -33,8 +33,6 @@ public class PathingTileGenerator : BaseTileGenerator {
         nodeConnections = nodeConnections.OrderBy(connection => Vector2Int.Distance(connection.Item1, connection.Item2)).ToList();
         LogNodeConnections(nodeConnections);
 
-        //nodeConnections.Shuffle(seed);
-
         // search heuristic
         Heuristic heuristic;
         if (heuristicType == HeuristicType.MANHATTAN) {
@@ -60,7 +58,7 @@ public class PathingTileGenerator : BaseTileGenerator {
 
     private void LogNodeConnections(List<Tuple<Vector2Int, Vector2Int>> nodeConnections) {
         var distanceList = nodeConnections.Select(connection => Vector2Int.Distance(connection.Item1, connection.Item2)).ToList();
-        var s = "";
+        var s = $"{distanceList.Count} connections:\n";
         for (var i = 0; i < nodeConnections.Count; i++) {
             s += $"{nodeConnections[i]} - {distanceList[i]}\n";
         }

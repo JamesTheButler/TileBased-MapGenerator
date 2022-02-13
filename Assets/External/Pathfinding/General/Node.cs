@@ -18,6 +18,7 @@ namespace Pathfinding.General {
             Id = Guid.NewGuid();
             Edges = new List<Edge>();
             Coordinates = new Point2D(-1, -1);
+            WasVisited = false;
         }
 
         public Node(int x, int y, float cost = 0) : this() {
