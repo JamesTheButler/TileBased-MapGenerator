@@ -1,7 +1,6 @@
 ﻿using Convenience.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace Pathfinding.General {
     public class Node {
@@ -36,8 +35,6 @@ namespace Pathfinding.General {
         }
 
         public override bool Equals(object obj) {
-            if (obj == null)
-                return false;
             if (!(obj is Node node))
                 return false;
             return node.Id == Id;
@@ -45,6 +42,10 @@ namespace Pathfinding.General {
 
         public override string ToString() {
             return $"[{Coordinates.X},\t {Coordinates.Y}] {Cost}";
+        }
+
+        public override int GetHashCode() {
+            return 2108858624 + Id.GetHashCode();
         }
     }
 }

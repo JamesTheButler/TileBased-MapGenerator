@@ -6,17 +6,25 @@ using System.Linq;
 using UnityEngine;
 
 namespace Pathfinding.AStar {
-    public class AStarSearch : BaseSearch {
-        public AStarSearch(GridTree2D map, Point2D startNode, Point2D endNode, Heuristic heuristic) : base(map, startNode, endNode) {
+
+    public class AStarSearch {
+        public AStarSearch(GridTree2D map, Point2D startNode, Point2D endNode, Heuristic heuristic) {
+            Map = map;
+            StartPosition = startNode;
+            EndPosition = endNode;
+
             this.heuristic = heuristic;
             Search();
         }
 
+        public GridTree2D Map { get; set; }
+        public Point2D StartPosition { get; set; }
+        public Point2D EndPosition { get; set; }
         private readonly Heuristic heuristic;
 
         public List<Node> GetPath() { return GetPath(out _); }
 
-        public override List<Node> GetPath(out float shortestPathCost) {
+        public List<Node> GetPath(out float shortestPathCost) {
             Point2D endPoint = EndPosition;
             Node node = Map.Nodes[endPoint.X, endPoint.Y];
             Debug.Log($"GetPath from {StartPosition} to {EndPosition}");
@@ -59,13 +67,13 @@ namespace Pathfinding.AStar {
 
             startNode.MinCostToStart = 0;
             var priorityQueue = new List<Node>();
-            VisitedNodes = new List<Node>();
+            var visitedNodes = new List<Node>();
             priorityQueue.Add(startNode);
 
             do {
                 priorityQueue = priorityQueue.OrderBy(priorityQNode => priorityQNode.MinCostToStart + heuristicMap[priorityQNode.Coordinates.X, priorityQNode.Coordinates.Y]).ToList();
                 var node = priorityQueue.First();
-                VisitedNodes.Add(node);
+                visitedNodes.Add(node);
                 priorityQueue.Remove(node);
 
                 foreach (var edge in node.Edges) {

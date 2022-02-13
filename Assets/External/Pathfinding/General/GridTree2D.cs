@@ -1,7 +1,5 @@
 ﻿using Convenience.Geometry;
 using System.Collections.Generic;
-using System.Drawing;
-using UnityEngine;
 
 namespace Pathfinding.General {
     public class GridTree2D {
@@ -81,12 +79,8 @@ namespace Pathfinding.General {
                         // check if neighbour is on map
                         Point2D adjPos = new Point2D(pos.X + adjStep.X, pos.Y + adjStep.Y);
 
-                        //if (new Rectangle(0, 0, Width, Height).Contains(adjPos)) {
                         if (adjPos.IsInside(new Point2D(0, 0), new Point2D(Width, Height))) {
                             // add edge to both nodes, if no edge exists between the nodes
-                            //Debug.Log($"nodepos: [{x},{y}]");
-                            //Debug.Log($"adjpos: [{adjPos}]");
-                            //Debug.Log($"dimensions: [{Width},{Height}]");
                             Node currNode = Nodes[x, y];
                             Node adjNode = Nodes[adjPos.X, adjPos.Y];
                             if (!currNode.IsConnected(adjNode) && currNode.Cost != -1 && adjNode.Cost != -1) {
