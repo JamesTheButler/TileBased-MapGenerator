@@ -23,9 +23,22 @@ public class CameraMovement : MonoBehaviour {
     //TODO make zoom function change with camera being ortho/perspective
 
     private void Start() {
-        cam = GetComponent<Camera>();
         screenSize = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
         startPosition = transform.position;
+    }
+
+    private void Awake() {
+        cam = GetComponent<Camera>();
+        MapGenerator.OnMapGenerationStarted += map => {
+            SetCamera(new Vector3(map.size.x / 2f, map.size.y / 2f, transform.position.z), Math.Max(map.size.x, map.size.y) * 0.55f);
+        };
+    }
+
+    private void SetCamera(Vector3 position, float size) {
+        Debug.Log("OnMapGenerationStarted");
+        transform.position = position;
+        cam.orthographicSize = size;
+        cameraMoveSpeed = size ;
     }
 
     private void Update() {
@@ -70,12 +83,6 @@ public class CameraMovement : MonoBehaviour {
     /// </summary>
     private void ToggleIsCamLocked() {
         isCamLocked = !isCamLocked;
-    }
-
-    public void SetMap(Vector2Int dimensions) {
-        transform.position = new Vector3(dimensions.x / 2, dimensions.y / 2, transform.position.z);
-        //    cam.orthographicSize = dimensions.x;
-        cameraMoveSpeed = dimensions.x / 4;
     }
 
     private bool IsMouseOnScreenEdge() {

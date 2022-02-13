@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField] private SerializableDict_TileType_int tileLayerHeight;
 
     public delegate void MapGenerationEvent(TileTypeMap tileTypeMap);
+    public static event MapGenerationEvent OnMapGenerationStarted;
     public static event MapGenerationEvent OnMapGenerationFinished;
 
     public delegate void NeighborsGeneratedEvent(Dictionary<Vector2Int, List<Vector2Int>> neighbors);
@@ -28,6 +29,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     private void Start() {
+        OnMapGenerationStarted?.Invoke(tileTypeMap);
         if (generateRandomSeed) {
             seed = GenerateSeed();
         }
