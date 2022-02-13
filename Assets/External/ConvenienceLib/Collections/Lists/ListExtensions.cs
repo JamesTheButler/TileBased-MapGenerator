@@ -68,8 +68,13 @@ namespace Convenience.Collections.Lists {
             return list.Count <= 0;
         }
 
-        public static string AsString<T>(this List<T> arg) {
-            return arg.ToString();
+        public static string AsString<T>(this List<T> list) {
+            var s = $"List<{typeof(T)}>:[\n";
+            foreach (var listElement in list) {
+                s += $"{listElement}\n";
+            }
+            s += "]";
+            return s;
         }
 
         public static string AsString<K, V>(this Dictionary<K, V> dict) {

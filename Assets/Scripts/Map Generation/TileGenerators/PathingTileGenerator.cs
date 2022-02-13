@@ -5,9 +5,11 @@ using Pathfinding.AStar;
 using Pathfinding.General;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PathingTileGenerator : BaseTileGenerator {
+    public int maxPathCount;
     public TileType nodeType;
     public float neighborRadius;
     public bool enabled2x2Culling = false;
@@ -26,7 +28,12 @@ public class PathingTileGenerator : BaseTileGenerator {
         var nodeTiles = tileTypeMap.GetTiles(nodeType);
         var neighborDict = CreateNeighbors(nodeTiles);
         var nodeConnections = ListDictToTupleList(neighborDict);
-        nodeConnections.Shuffle(seed);
+
+        // order list by 
+        nodeConnections = nodeConnections.OrderBy(connection => Vector2Int.Distance(connection.Item1, connection.Item2)).ToList();
+        LogNodeConnections(nodeConnections);
+
+        //nodeConnections.Shuffle(seed);
 
         // search heuristic
         Heuristic heuristic;
@@ -51,6 +58,15 @@ public class PathingTileGenerator : BaseTileGenerator {
         return thisLayer;
     }
 
+    private void LogNodeConnections(List<Tuple<Vector2Int, Vector2Int>> nodeConnections) {
+        var distanceList = nodeConnections.Select(connection => Vector2Int.Distance(connection.Item1, connection.Item2)).ToList();
+        var s = "";
+        for (var i = 0; i < nodeConnections.Count; i++) {
+            s += $"{nodeConnections[i]} - {distanceList[i]}\n";
+        }
+        Debug.Log(s);
+    }
+
     public float[,] GetTileTypeCostsMap(TileTypeMap tileTypeMap) {
         // Create and fill with GRASS cost
         var costField = Array2DUtility.CreateArray(tileTypeMap.size.x, tileTypeMap.size.y, pathingCosts[TileType.GRASS]);
@@ -70,11 +86,12 @@ public class PathingTileGenerator : BaseTileGenerator {
         var pathTiles = new List<Vector2Int>();
         var gridMap = new GridTree2D(GetTileTypeCostsMap(tileTypeMap));
         int i = 0;
+
         foreach (var entry in paths) {
             i++;
             var start = entry.Item1.ToPoint2D();
             var end = entry.Item2.ToPoint2D();
-
+            Debug.Log($"path from {start} to {end}");
             var astar = new AStarSearch(gridMap, start, end, heuristic);
             var path = astar.GetPath().ConvertAll(node => new Vector2Int(node.Coordinates.X, node.Coordinates.Y));
 
@@ -85,7 +102,12 @@ public class PathingTileGenerator : BaseTileGenerator {
             }
             gridMap.Update(intField);
             pathTiles.AddRange(path);
+
+            Debug.Log($"PathingTileGenerator.GeneratePathTiles -- Added path {i}:\n {path.AsString()}.");
+            if (i == maxPathCount) break;
         }
+        Debug.Log($"PathingTileGenerator.GeneratePathTiles -- Added {i} paths.");
+
         return pathTiles;
     }
 
@@ -175,8 +197,6 @@ public class PathingTileGenerator : BaseTileGenerator {
 
     private List<Tuple<Vector2Int, Vector2Int>> ListDictToTupleList(Dictionary<Vector2Int, List<Vector2Int>> dict) {
         var list = new List<Tuple<Vector2Int, Vector2Int>>();
-        Debug.Log($"dict has {dict.Keys.Count} keys");
-
         foreach (var element in dict) {
             foreach (var value in element.Value) {
                 var newTuple = new Tuple<Vector2Int, Vector2Int>(element.Key, value);

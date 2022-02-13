@@ -17,10 +17,9 @@ public class MouseInput : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             var town = townMgr.GetTown(roundedMouseWorldPos);
             if (town != null) {
-                Debug.Log($"MouseInput -- clicked on Town {town.Name}");
                 textField.text = $"Town: {town.Name} [{town.Coordinates}]";
             } else {
-                textField.text = string.Empty;
+                textField.text = $"[{roundedMouseWorldPos}]"; 
             }
         }
     }

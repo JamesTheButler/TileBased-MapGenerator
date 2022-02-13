@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Convenience.Collections.Lists;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TownManager : MonoBehaviour {
@@ -66,6 +67,10 @@ public class TownManager : MonoBehaviour {
             townPositions.Add(townTiles[i], town);
         }
 
+        //LogNeighbors();
+    }
+
+    private void LogNeighbors() {
         foreach (var entry in neighbors) {
             var neighborSet = $"{GetTown(entry.Key).Name} -";
             foreach (var val in entry.Value) {

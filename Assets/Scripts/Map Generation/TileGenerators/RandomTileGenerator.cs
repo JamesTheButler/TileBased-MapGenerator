@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class RandomTileGenerator : BaseTileGenerator {
     [Range(0, 1)]

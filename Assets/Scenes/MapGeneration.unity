@@ -926,6 +926,11 @@ PrefabInstance:
       propertyPath: pathingCosts._values.Array.data[3]
       value: 125
       objectReference: {fileID: 0}
+    - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: maxPathCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1924446827238093972, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileType
@@ -1104,7 +1109,7 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileLayerHeight.reorderableList.isExpanded
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1365,12 +1370,12 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: generateRandomSeed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: seed
-      value: 5079
+      value: 9286
       objectReference: {fileID: 0}
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
