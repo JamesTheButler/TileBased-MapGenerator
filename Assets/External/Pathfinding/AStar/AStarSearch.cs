@@ -2,41 +2,41 @@
 using Convenience.Collections.Lists;
 using Convenience.Geometry;
 using Pathfinding.General;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Pathfinding.AStar {
     public class AStarSearch {
-        public AStarSearch(GridTree2D map, Point2D startNode, Point2D endNode, Heuristic heuristic) {
-            Map = map;
-            StartPosition = startNode;
-            EndPosition = endNode;
-
+        public AStarSearch(GridTree2D map, Point2DInt startNode, Point2DInt endNode, Heuristic heuristic) {
+            this.map = map;
+            startPosition = startNode;
+            endPosition = endNode;
             this.heuristic = heuristic;
+
             Search();
         }
 
-        public GridTree2D Map { get; set; }
-        public Point2D StartPosition { get; set; }
-        public Point2D EndPosition { get; set; }
-        private SearchNode[,] SearchMap { get; set; }
+        private readonly GridTree2D map;
+        private readonly Point2DInt startPosition;
+        private readonly Point2DInt endPosition;
         private readonly Heuristic heuristic;
+
+        private SearchNode[,] searchMap;
 
         private void Search() {
             float[,] heuristicMap = SetupHeuristics();
             //LogHeuristicMap(heuristicMap);
 
-            SearchMap = new SearchNode[Map.Width, Map.Height];
-            for (int i = 0; i < Map.Width; i++) {
-                for (int j = 0; j < Map.Height; j++) {
-                    SearchMap[i, j] = new SearchNode();
+            searchMap = new SearchNode[map.Width, map.Height];
+            for (int i = 0; i < map.Width; i++) {
+                for (int j = 0; j < map.Height; j++) {
+                    searchMap[i, j] = new SearchNode();
                 }
             }
 
-            Node startNode = Map.Nodes[StartPosition.X, StartPosition.Y];
-            var startSearchNode = SearchMap[StartPosition.X, StartPosition.Y];
+            Node startNode = map.Nodes[startPosition.X, startPosition.Y];
+            var startSearchNode = searchMap[startPosition.X, startPosition.Y];
 
             startSearchNode.MinCostToStart = 0;
             var priorityQueue = new List<Node>();
@@ -46,13 +46,13 @@ namespace Pathfinding.AStar {
             do {
                 // sort priority queue by smallest costToStart+heuristic
                 priorityQueue = priorityQueue.OrderBy(priorityQNode => {
-                    var priorityQSearchNode = SearchMap[priorityQNode.Coordinates.X, priorityQNode.Coordinates.Y];
+                    var priorityQSearchNode = searchMap[priorityQNode.Coordinates.X, priorityQNode.Coordinates.Y];
                     var heuristic = heuristicMap[priorityQNode.Coordinates.X, priorityQNode.Coordinates.Y];
                     return priorityQSearchNode.MinCostToStart + heuristic;
                 }).ToList();
 
                 var node = priorityQueue.PopFirst();
-                var searchNode = SearchMap[node.Coordinates.X, node.Coordinates.Y];
+                var searchNode = searchMap[node.Coordinates.X, node.Coordinates.Y];
                 visitedNodes.Add(node);
 
                 foreach (var edge in node.Edges) {
@@ -63,7 +63,7 @@ namespace Pathfinding.AStar {
                     } else {
                         otherNode = edge.Nodes.Item1;
                     }
-                    otherSearchNode = SearchMap[otherNode.Coordinates.X, otherNode.Coordinates.Y];
+                    otherSearchNode = searchMap[otherNode.Coordinates.X, otherNode.Coordinates.Y];
 
                     if (otherSearchNode.WasVisited)
                         continue;
@@ -77,7 +77,7 @@ namespace Pathfinding.AStar {
                 }
                 searchNode.WasVisited = true;
 
-                if (node.Coordinates == EndPosition)
+                if (node.Coordinates == endPosition)
                     return;
 
             } while (priorityQueue.Count > 0);
@@ -88,15 +88,15 @@ namespace Pathfinding.AStar {
         }
 
         public List<Node> GetPath(out float shortestPathCost) {
-            Node node = Map.Nodes[EndPosition.X, EndPosition.Y];
-            SearchNode searchNode = SearchMap[node.Coordinates.X, node.Coordinates.Y];
+            Node node = map.Nodes[endPosition.X, endPosition.Y];
+            SearchNode searchNode = searchMap[node.Coordinates.X, node.Coordinates.Y];
             List<Node> path = new List<Node>();
 
             shortestPathCost = 0;
             if (node == null || searchNode.NearestNodeToStart == null) { return path; }
 
             do {
-                searchNode = SearchMap[node.Coordinates.X, node.Coordinates.Y];
+                searchNode = searchMap[node.Coordinates.X, node.Coordinates.Y];
 
                 path.Add(node);
                 if (searchNode.NearestNodeToStart != null) {
@@ -106,8 +106,8 @@ namespace Pathfinding.AStar {
                     ).Cost;
                 }
                 node = searchNode.NearestNodeToStart;
-                
-                if (node == null || node.Coordinates == StartPosition) { break; }
+
+                if (node == null || node.Coordinates == startPosition) { break; }
             } while (true);
 
             path.Reverse();
@@ -126,10 +126,10 @@ namespace Pathfinding.AStar {
         }
 
         private float[,] SetupHeuristics() {
-            float[,] heuristicMap = new float[Map.Nodes.GetLength(0), Map.Nodes.GetLength(1)];
-            for (int i = 0; i < Map.Nodes.GetLength(0); i++) {
-                for (int j = 0; j < Map.Nodes.GetLength(1); j++) {
-                    heuristicMap[i, j] = heuristic.Calculate(Map.Nodes[i, j].Coordinates, EndPosition);
+            float[,] heuristicMap = new float[map.Nodes.GetLength(0), map.Nodes.GetLength(1)];
+            for (int i = 0; i < map.Nodes.GetLength(0); i++) {
+                for (int j = 0; j < map.Nodes.GetLength(1); j++) {
+                    heuristicMap[i, j] = heuristic.Calculate(new Point2DInt(i, j), endPosition);
                 }
             }
             return heuristicMap;

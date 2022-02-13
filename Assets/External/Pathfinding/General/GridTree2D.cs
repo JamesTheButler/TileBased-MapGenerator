@@ -49,22 +49,22 @@ namespace Pathfinding.General {
         /// </summary>
         private void GenerateEdges() {
             // steps to adjacent cells
-            List<Point2D> adjSteps = new List<Point2D> {
-                new Point2D(-1, 0),
-                new Point2D(1, 0),
-                new Point2D(0, -1),
-                new Point2D(0, 1)
+            List<Point2DInt> adjSteps = new List<Point2DInt> {
+                new Point2DInt(-1, 0),
+                new Point2DInt(1, 0),
+                new Point2DInt(0, -1),
+                new Point2DInt(0, 1)
             };
 
             for (int x = 0; x < Width; x++) {
                 for (int y = 0; y < Height; y++) {
-                    Point2D pos = new Point2D(x, y);
+                    Point2DInt pos = new Point2DInt(x, y);
                     // find neighbours
                     foreach (var adjStep in adjSteps) {
                         // check if neighbour is on map
-                        Point2D adjPos = new Point2D(pos.X + adjStep.X, pos.Y + adjStep.Y);
+                        Point2DInt adjPos = new Point2DInt(pos.X + adjStep.X, pos.Y + adjStep.Y);
 
-                        if (adjPos.IsInside(new Point2D(0, 0), new Point2D(Width, Height))) {
+                        if (adjPos.IsInside(new Point2DInt(0, 0), new Point2DInt(Width, Height))) {
                             // add edge to both nodes, if no edge exists between the nodes
                             Node currNode = Nodes[x, y];
                             Node adjNode = Nodes[adjPos.X, adjPos.Y];

@@ -1,6 +1,6 @@
 ﻿namespace Convenience.Geometry {
-    public class Point2D {
-        public Point2D(int x, int y) {
+    public class Point2DInt {
+        public Point2DInt(int x, int y) {
             X = x;
             Y = y;
         }
@@ -12,7 +12,7 @@
         }
 
         public override bool Equals(object obj) {
-            return obj is Point2D point && X == point.X && Y == point.Y;
+            return obj is Point2DInt point && X == point.X && Y == point.Y;
         }
 
         public override int GetHashCode() {

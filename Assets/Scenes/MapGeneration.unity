@@ -914,7 +914,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: pathingCosts._values.Array.data[2]
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -924,7 +924,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: pathingCosts._values.Array.data[3]
-      value: 125
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1360,12 +1360,12 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.x
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.y
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}

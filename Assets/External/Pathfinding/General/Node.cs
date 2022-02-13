@@ -5,16 +5,16 @@ using System.Collections.Generic;
 namespace Pathfinding.General {
     public class Node {
         public List<Edge> Edges { get; set; }
-        public Point2D Coordinates { get; protected set; }
+        public Point2DInt Coordinates { get; protected set; }
         public float Cost { get; set; }
 
         public Node() {
             Edges = new List<Edge>();
-            Coordinates = new Point2D(-1, -1);
+            Coordinates = new Point2DInt(-1, -1);
         }
 
         public Node(int x, int y, float cost = 0) : this() {
-            Coordinates = new Point2D(x, y);
+            Coordinates = new Point2DInt(x, y);
             Cost = cost;
         }
 
