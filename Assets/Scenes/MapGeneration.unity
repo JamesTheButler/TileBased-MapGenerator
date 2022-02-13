@@ -564,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: neighborRadius
-      value: 25
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -929,7 +929,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: maxPathCount
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1924446827238093972, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1360,12 +1360,12 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.x
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.y
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1420,12 +1420,12 @@ PrefabInstance:
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileCount
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: quadrantBlockedLimit
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}

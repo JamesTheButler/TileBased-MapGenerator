@@ -17,9 +17,9 @@
             Array2DUtility.MaskedFill(array, value, mask);
         }
 
-        // TODO this probably doesn't work? Call it AsString like in ListExtensions
-        public static string ToString<T>(this T[,] array) {
-            return Array2DUtility.ToString(array);
+        //TODO add to lib
+        public static string AsString<T>(this T[,] array) {
+            return Array2DUtility.AsString(array);
         }
     }
 }

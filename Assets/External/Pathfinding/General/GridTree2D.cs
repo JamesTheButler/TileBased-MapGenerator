@@ -89,13 +89,13 @@ namespace Pathfinding.General {
             for (int i = 0; i < Nodes.GetLength(0); i++) {
                 for (int j = 0; j < Nodes.GetLength(1); j++) {
                     Nodes[i, j].Cost = newCosts[i, j];
-                    Nodes[i, j].NearestNodeToStart = null;
-                    Nodes[i, j].MinCostToStart = float.MaxValue;
-                    Nodes[i, j].WasVisited = false;
                 }
             }
         }
 
+        /// <summary>
+        /// Returns an array of the nodes costs.
+        /// </summary>
         public float[,] GetCostField() {
             var costs = new float[Nodes.GetLength(0), Nodes.GetLength(1)];
             for (int i = 0; i < costs.GetLength(0); i++) {

@@ -85,23 +85,24 @@ public class PathingTileGenerator : BaseTileGenerator {
         var gridMap = new GridTree2D(GetTileTypeCostsMap(tileTypeMap));
         int i = 0;
 
+        Debug.Log($"original intField:\n{gridMap.GetCostField().AsString()}");
         foreach (var entry in paths) {
             i++;
             var start = entry.Item1.ToPoint2D();
             var end = entry.Item2.ToPoint2D();
-            Debug.Log($"path from {start} to {end}");
+            Debug.Log($"-- path {i} -- from {start} to {end}");
             var astar = new AStarSearch(gridMap, start, end, heuristic);
             var path = astar.GetPath().ConvertAll(node => new Vector2Int(node.Coordinates.X, node.Coordinates.Y));
 
             var intField = gridMap.GetCostField();
-
             foreach (var node in path) {
                 intField[node.x, node.y] = pathingCosts[TileType.ROAD];
             }
+            Debug.Log($"-- path {i} -- intField:\n{intField.AsString()}");
             gridMap.Update(intField);
             pathTiles.AddRange(path);
 
-            Debug.Log($"PathingTileGenerator.GeneratePathTiles -- Added path {i}:\n {path.AsString()}.");
+            Debug.Log($"-- path {i} -- \n {path.AsString()}.");
             if (i == maxPathCount) break;
         }
         Debug.Log($"PathingTileGenerator.GeneratePathTiles -- Added {i} paths.");

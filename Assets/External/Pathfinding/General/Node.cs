@@ -5,20 +5,12 @@ using System.Collections.Generic;
 namespace Pathfinding.General {
     public class Node {
         public List<Edge> Edges { get; set; }
-        public Point2D Coordinates { get; private set; }
+        public Point2D Coordinates { get; protected set; }
         public float Cost { get; set; }
-        public Node NearestNodeToStart { get; set; }
-        public float MinCostToStart { get; set; }
-        public bool WasVisited { get; set; }
-        public Guid Id { get; set; }
 
         public Node() {
-            NearestNodeToStart = null;
-            MinCostToStart = float.MaxValue;
-            Id = Guid.NewGuid();
             Edges = new List<Edge>();
             Coordinates = new Point2D(-1, -1);
-            WasVisited = false;
         }
 
         public Node(int x, int y, float cost = 0) : this() {
@@ -36,9 +28,7 @@ namespace Pathfinding.General {
         }
 
         public override bool Equals(object obj) {
-            if (!(obj is Node node))
-                return false;
-            return node.Id == Id;
+            return obj is Node node && Coordinates == node.Coordinates;
         }
 
         public override string ToString() {
@@ -46,7 +36,7 @@ namespace Pathfinding.General {
         }
 
         public override int GetHashCode() {
-            return 2108858624 + Id.GetHashCode();
+            return Coordinates.GetHashCode();
         }
     }
 }

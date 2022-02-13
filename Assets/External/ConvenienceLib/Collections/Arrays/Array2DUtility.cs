@@ -69,7 +69,7 @@ namespace Convenience.Collections.Arrays {
             return mergedArray;
         }
 
-        public static T[,] MergeArrays<T>(T[,] arr1, T[,] arr2, Func<T,T,T> mergeFunction) {
+        public static T[,] MergeArrays<T>(T[,] arr1, T[,] arr2, Func<T, T, T> mergeFunction) {
             if (arr1.GetLength(0) != arr2.GetLength(0) || arr1.GetLength(1) != arr2.GetLength(1)) return arr1;
 
             var mergedArray = new T[arr1.GetLength(0), arr2.GetLength(1)];
@@ -81,10 +81,10 @@ namespace Convenience.Collections.Arrays {
             return mergedArray;
         }
 
-        public static string ToString<T>(T[,] array) {
+        public static string AsString<T>(T[,] array) {
             string s = "";
-            for (int i = 0; i < array.GetLength(0); i++) {
-                for (int j = 0; j < array.GetLength(1); j++) {
+            for (int j = array.GetLength(1) - 1; j >= 0; j--) {
+                for (int i = 0; i < array.GetLength(0); i++) {
                     s += array[i, j].ToString() + "\t";
                 }
                 s += "\n";
