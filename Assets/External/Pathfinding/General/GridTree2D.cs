@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Pathfinding.General {
     public class GridTree2D {
         public Node[,] Nodes { get; set; }
+        public List<Edge> Edges { get; set; }
         public int Width { get; private set; }
         public int Height { get; private set; }
 
@@ -68,8 +69,8 @@ namespace Pathfinding.General {
                             // add edge to both nodes, if no edge exists between the nodes
                             Node currNode = Nodes[x, y];
                             Node adjNode = Nodes[adjPos.X, adjPos.Y];
-                            if (!currNode.IsConnected(adjNode) && currNode.Cost != -1 && adjNode.Cost != -1) {
-                                var edge = new Edge((currNode.Cost + adjNode.Cost) / 2.0f, currNode, adjNode);
+                            if (!currNode.IsConnected(adjNode)) {
+                                var edge = new Edge(currNode, adjNode);
                                 currNode.Edges.Add(edge);
                                 adjNode.Edges.Add(edge);
                             }

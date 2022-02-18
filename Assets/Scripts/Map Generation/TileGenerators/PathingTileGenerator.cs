@@ -49,8 +49,10 @@ public class PathingTileGenerator : BaseTileGenerator {
             thisLayer[pathTile.x, pathTile.y] = true;
         }
 
-        // cull 2x2 path blocks
+        // cull 2x2 path blocks (do a couple of times to get rid of weird edge cases
         if (enabled2x2Culling) {
+            Cull2x2Crossings(thisLayer, nodeTiles, tileTypeMap.size);
+            Cull2x2Crossings(thisLayer, nodeTiles, tileTypeMap.size);
             Cull2x2Crossings(thisLayer, nodeTiles, tileTypeMap.size);
         }
         return thisLayer;
@@ -82,27 +84,26 @@ public class PathingTileGenerator : BaseTileGenerator {
 
     private List<Vector2Int> GeneratePathTiles(TileTypeMap tileTypeMap, List<Tuple<Vector2Int, Vector2Int>> paths, Heuristic heuristic) {
         var pathTiles = new List<Vector2Int>();
-        var gridMap = new GridTree2D(GetTileTypeCostsMap(tileTypeMap));
         int i = 0;
+        var gridTree = new GridTree2D(GetTileTypeCostsMap(tileTypeMap));
 
-        Debug.Log($"original intField:\n{gridMap.GetCostField().AsString()}");
         foreach (var entry in paths) {
             i++;
             var start = entry.Item1.ToPoint2D();
             var end = entry.Item2.ToPoint2D();
-            Debug.Log($"-- path {i} -- from {start} to {end}");
-            var astar = new AStarSearch(gridMap, start, end, heuristic);
+            var astar = new AStarSearch(gridTree, start, end, heuristic);
             var path = astar.GetPath().ConvertAll(node => new Vector2Int(node.Coordinates.X, node.Coordinates.Y));
+            var costField = gridTree.GetCostField();
 
-            var intField = gridMap.GetCostField();
             foreach (var node in path) {
-                intField[node.x, node.y] = pathingCosts[TileType.ROAD];
+                costField[node.x, node.y] = pathingCosts[TileType.ROAD];
             }
-            Debug.Log($"-- path {i} -- intField:\n{intField.AsString()}");
-            gridMap.Update(intField);
-            pathTiles.AddRange(path);
+            gridTree.Update(costField);
 
-            Debug.Log($"-- path {i} -- \n {path.AsString()}.");
+            foreach (var node in path) {
+                costField[node.x, node.y] = pathingCosts[TileType.ROAD];
+            }
+            pathTiles.AddRange(path);
             if (i == maxPathCount) break;
         }
         Debug.Log($"PathingTileGenerator.GeneratePathTiles -- Added {i} paths.");
@@ -147,6 +148,7 @@ public class PathingTileGenerator : BaseTileGenerator {
 
     private void Cull2x2Crossings(bool[,] pathTileLayer, List<Vector2Int> nodeTileList, Vector2Int mapSize) {
         var topRightCornersOf2x2Patches = FindTopRightCornersOf2x2Patches(pathTileLayer, mapSize);
+        if (topRightCornersOf2x2Patches.IsEmpty()) return;
 
         var deltas = new List<Vector2Int> {
             Vector2Int.up,
@@ -172,10 +174,10 @@ public class PathingTileGenerator : BaseTileGenerator {
                 for (int i = 0; i < 4; i++) {
                     var adjacentTilePos = new Vector2Int(patchTile.x + deltas[i].x, patchTile.y + deltas[i].y);
                     if (adjacentTilePos.IsInside(mapSize)) {
-                        if (nodeTileList.Contains(adjacentTilePos)) {
-                            hasNode = true;
-                            break;
-                        }
+                        //if (nodeTileList.Contains(adjacentTilePos)) {
+                        //    hasNode = true;
+                        //    break;
+                        //}
                         if (pathTileLayer[adjacentTilePos.x, adjacentTilePos.y]) {
                             count++;
                         }

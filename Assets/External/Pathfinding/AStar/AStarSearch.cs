@@ -65,11 +65,13 @@ namespace Pathfinding.AStar {
                     }
                     otherSearchNode = searchMap[otherNode.Coordinates.X, otherNode.Coordinates.Y];
 
-                    if (otherSearchNode.WasVisited)
+                    if (otherSearchNode.WasVisited || otherNode.Cost == -1)
                         continue;
 
-                    if (otherSearchNode.MinCostToStart > searchNode.MinCostToStart + edge.Cost) {
-                        otherSearchNode.MinCostToStart = searchNode.MinCostToStart + edge.Cost;
+
+                    var edgeCost = GetCostBetweenNodes(otherNode, node);
+                    if (otherSearchNode.MinCostToStart > searchNode.MinCostToStart + edgeCost) {
+                        otherSearchNode.MinCostToStart = searchNode.MinCostToStart + edgeCost;
                         otherSearchNode.NearestNodeToStart = node;
                         if (!priorityQueue.Contains(otherNode))
                             priorityQueue.Add(otherNode);
@@ -100,10 +102,7 @@ namespace Pathfinding.AStar {
 
                 path.Add(node);
                 if (searchNode.NearestNodeToStart != null) {
-                    shortestPathCost += node.Edges.Single(edge =>
-                        edge.Nodes.Item1 == searchNode.NearestNodeToStart ||
-                        edge.Nodes.Item2 == searchNode.NearestNodeToStart
-                    ).Cost;
+                    shortestPathCost += GetCostBetweenNodes(node, searchNode.NearestNodeToStart);
                 }
                 node = searchNode.NearestNodeToStart;
 
@@ -125,10 +124,14 @@ namespace Pathfinding.AStar {
             Debug.Log($"Heuristic map:\n {s}");
         }
 
+        private float GetCostBetweenNodes(Node node1, Node node2) {
+            return node1.Cost + node2.Cost / 2f;
+        }
+
         private float[,] SetupHeuristics() {
-            float[,] heuristicMap = new float[map.Nodes.GetLength(0), map.Nodes.GetLength(1)];
-            for (int i = 0; i < map.Nodes.GetLength(0); i++) {
-                for (int j = 0; j < map.Nodes.GetLength(1); j++) {
+            float[,] heuristicMap = new float[map.Width, map.Height];
+            for (int i = 0; i < map.Width; i++) {
+                for (int j = 0; j < map.Height; j++) {
                     heuristicMap[i, j] = heuristic.Calculate(new Point2DInt(i, j), endPosition);
                 }
             }
