@@ -564,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: neighborRadius
-      value: 500
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1360,12 +1360,12 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.x
-      value: 50
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.y
-      value: 50
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1375,7 +1375,7 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: seed
-      value: 9286
+      value: 6152
       objectReference: {fileID: 0}
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1420,12 +1420,17 @@ PrefabInstance:
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileCount
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: quadrantBlockedLimit
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: useSegmentation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1835,7 +1840,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Town Name
+  m_Text: 
 --- !u!222 &1125551034
 CanvasRenderer:
   m_ObjectHideFlags: 0

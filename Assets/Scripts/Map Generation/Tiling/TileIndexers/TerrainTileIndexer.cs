@@ -6,18 +6,44 @@ public class TerrainTileIndexer : BaseTileIndexer {
     // Sprites
     public Sprite DefaultSprite;
     public Sprite CenterSprite;
+
+    [Header("Outer Corners")]
+    /* The direction refers to the uncolored part of the sprite. */
     public Sprite OuterCornerTopRightSprite;
     public Sprite OuterCornerTopLeftSprite;
     public Sprite OuterCornerBottomRightSprite;
     public Sprite OuterCornerBottomLeftSprite;
+
+    [Header("Edges")]
+    /* The direction refers to uncolored part of the sprite. */
     public Sprite EdgeTopSprite;
     public Sprite EdgeLeftSprite;
     public Sprite EdgeRightSprite;
     public Sprite EdgeBottomSprite;
+
+    [Header("Inner Corners")]
+    /* The direction refers to the uncolored part of the sprite. */
     public Sprite InnerCornerTopRightSprite;
     public Sprite InnerCornerTopLeftSprite;
     public Sprite InnerCornerBottomRightSprite;
     public Sprite InnerCornerBottomLeftSprite;
+
+    [Header("T-Sections")]
+    /* The direction refers to the narrow part of the sprite. */
+    public Sprite TSectionTopSprite;
+    public Sprite TSectionRightSprite;
+    public Sprite TSectionBottomSprite;
+    public Sprite TSectionLeftSprite;
+
+    [Header("Single Bits")]
+    /*
+     The direction refers to where the connected tile is in relation to this tile.
+     The TopSprite is the one with the connective tile above it.
+    */
+    public Sprite SingleBitTopSprite;
+    public Sprite SingleBitRightSprite;
+    public Sprite SingleBitBottomSprite;
+    public Sprite SingleBitLeftSprite;
 
     public override void Index(Tilemap tilemap, bool[,] flagMap, int tileLayer) {
         base.Index(tilemap, flagMap, tileLayer);
@@ -87,33 +113,59 @@ public class TerrainTileIndexer : BaseTileIndexer {
         if ((vicinityFlag & (1 << (int)VicinityFlagEntry.BottomLeft)) != 0) cornerId += 4;
         if ((vicinityFlag & (1 << (int)VicinityFlagEntry.BottomRight)) != 0) cornerId += 8;
 
-        Sprite tileSprite;
-        // check edges
-        switch (edgeId) {
-            case 12: tileSprite = OuterCornerTopLeftSprite; break;
-            case 14: tileSprite = EdgeTopSprite; break;
-            case 10: tileSprite = OuterCornerTopRightSprite; break;
-            case 13: tileSprite = EdgeLeftSprite; break;
-            case 15: tileSprite = ResolveCenterPiece(vicinityFlag, cornerId); break;   // center piece
-            case 11: tileSprite = EdgeRightSprite; break;
-            case 5: tileSprite = OuterCornerBottomLeftSprite; break;
-            case 7: tileSprite = EdgeBottomSprite; break;
-            case 3: tileSprite = OuterCornerBottomRightSprite; break;
-            default: tileSprite = DefaultSprite; break;
+        Sprite tileSprite = ResolveTileSprite(edgeId, cornerId);
+        if (tileSprite == null) {
+            tileSprite = DefaultSprite;
         }
         return TileUtility.SpriteToTile(tileSprite);
     }
 
-    private Sprite ResolveCenterPiece(int vicinityFlag, int cornerId) {
-        if (cornerId == 7)
-            return InnerCornerTopLeftSprite;
-        if (cornerId == 11)
-            return InnerCornerTopRightSprite;
-        if (cornerId == 13)
-            return InnerCornerBottomLeftSprite;
-        if (cornerId == 14)
-            return InnerCornerBottomRightSprite;
-        // for all other cases
-        return CenterSprite;
+    private Sprite ResolveTileSprite(int edgeId, int cornerId) {
+        // Flags:
+        // _c1_|__e1__|_c2_
+        // _e2_|_tile_|_e4_
+        // _c4_|__e8__|_c8_
+        switch (edgeId) {
+            // Outer Corners
+            case 12: return OuterCornerTopLeftSprite;
+            case 10: return OuterCornerTopRightSprite;
+            case 5: return OuterCornerBottomLeftSprite;
+            case 3: return OuterCornerBottomRightSprite;
+            // Edges
+            case 14: return EdgeTopSprite;
+            case 13: return EdgeLeftSprite;
+            case 11: return EdgeRightSprite;
+            case 7: return EdgeBottomSprite;
+            // Center Piece
+            case 15: return ResolveCenterPiece(cornerId);
+            // Single Bits
+            case 1: return SingleBitTopSprite;
+            case 4: return SingleBitRightSprite;
+            case 8: return SingleBitBottomSprite;
+            case 2: return SingleBitLeftSprite;
+
+            default: return DefaultSprite;
+        }
+    }
+
+    private Sprite ResolveCenterPiece(int cornerId) {
+        // Flags:
+        // _c1_|__e1__|_c2_
+        // _e2_|_tile_|_e4_
+        // _c4_|__e8__|_c8_
+        switch (cornerId) {
+            // inner corners
+            case 7: return InnerCornerBottomRightSprite;
+            case 11: return InnerCornerBottomLeftSprite;
+            case 13: return InnerCornerTopRightSprite;
+            case 14: return InnerCornerTopLeftSprite;
+            // T Sections
+            case 12: return TSectionTopSprite;
+            case 5: return TSectionRightSprite;
+            case 3: return TSectionBottomSprite;
+            case 10: return TSectionLeftSprite;
+
+            default: return CenterSprite;
+        }
     }
 }

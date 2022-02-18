@@ -43,25 +43,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def6ac8016f608a45a3bedfa898872be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultSprite: {fileID: 21300058, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-  CenterSprite: {fileID: 21300044, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-  OuterCornerTopRightSprite: {fileID: 21300040, guid: dd667f4ebba89814195a913f2f42b990,
+  DefaultSprite: {fileID: 21300058, guid: d3d7f8b96842539409d7e1dfd7140c56, type: 3}
+  CenterSprite: {fileID: 21300044, guid: d3d7f8b96842539409d7e1dfd7140c56, type: 3}
+  OuterCornerTopRightSprite: {fileID: 21300040, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  OuterCornerTopLeftSprite: {fileID: 21300036, guid: dd667f4ebba89814195a913f2f42b990,
+  OuterCornerTopLeftSprite: {fileID: 21300036, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  OuterCornerBottomRightSprite: {fileID: 21300052, guid: dd667f4ebba89814195a913f2f42b990,
+  OuterCornerBottomRightSprite: {fileID: 21300052, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  OuterCornerBottomLeftSprite: {fileID: 21300048, guid: dd667f4ebba89814195a913f2f42b990,
+  OuterCornerBottomLeftSprite: {fileID: 21300048, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  EdgeTopSprite: {fileID: 21300038, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-  EdgeLeftSprite: {fileID: 21300042, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-  EdgeRightSprite: {fileID: 21300046, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-  EdgeBottomSprite: {fileID: 21300050, guid: dd667f4ebba89814195a913f2f42b990, type: 3}
-  InnerCornerTopRightSprite: {fileID: 21300056, guid: dd667f4ebba89814195a913f2f42b990,
+  EdgeTopSprite: {fileID: 21300038, guid: d3d7f8b96842539409d7e1dfd7140c56, type: 3}
+  EdgeLeftSprite: {fileID: 21300042, guid: d3d7f8b96842539409d7e1dfd7140c56, type: 3}
+  EdgeRightSprite: {fileID: 21300046, guid: d3d7f8b96842539409d7e1dfd7140c56, type: 3}
+  EdgeBottomSprite: {fileID: 21300050, guid: d3d7f8b96842539409d7e1dfd7140c56, type: 3}
+  InnerCornerTopRightSprite: {fileID: 21300060, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  InnerCornerTopLeftSprite: {fileID: 21300054, guid: dd667f4ebba89814195a913f2f42b990,
+  InnerCornerTopLeftSprite: {fileID: 21300062, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  InnerCornerBottomRightSprite: {fileID: 21300062, guid: dd667f4ebba89814195a913f2f42b990,
+  InnerCornerBottomRightSprite: {fileID: 21300054, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
-  InnerCornerBottomLeftSprite: {fileID: 21300060, guid: dd667f4ebba89814195a913f2f42b990,
+  InnerCornerBottomLeftSprite: {fileID: 21300056, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  TSectionTopSprite: {fileID: 2776670315160216995, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  TSectionRightSprite: {fileID: 1564306720949072997, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  TSectionBottomSprite: {fileID: 1737628197619539445, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  TSectionLeftSprite: {fileID: 4430243504325635456, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  SingleBitTopSprite: {fileID: -6244209585504991988, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  SingleBitRightSprite: {fileID: -7502393737219156881, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  SingleBitBottomSprite: {fileID: 3334829119652289410, guid: d3d7f8b96842539409d7e1dfd7140c56,
+    type: 3}
+  SingleBitLeftSprite: {fileID: -1681810376497622554, guid: d3d7f8b96842539409d7e1dfd7140c56,
     type: 3}
