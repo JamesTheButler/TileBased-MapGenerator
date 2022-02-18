@@ -158,7 +158,6 @@ public class PathingTileGenerator : BaseTileGenerator {
         };
 
         var cullList = new List<Vector2Int>();
-
         // foreach 2x2 patch
         foreach (var topTile in topRightCornersOf2x2Patches) {
             var patchTiles = new List<Vector2Int>{
@@ -174,10 +173,6 @@ public class PathingTileGenerator : BaseTileGenerator {
                 for (int i = 0; i < 4; i++) {
                     var adjacentTilePos = new Vector2Int(patchTile.x + deltas[i].x, patchTile.y + deltas[i].y);
                     if (adjacentTilePos.IsInside(mapSize)) {
-                        //if (nodeTileList.Contains(adjacentTilePos)) {
-                        //    hasNode = true;
-                        //    break;
-                        //}
                         if (pathTileLayer[adjacentTilePos.x, adjacentTilePos.y]) {
                             count++;
                         }

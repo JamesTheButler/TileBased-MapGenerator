@@ -1,6 +1,4 @@
 using Convenience.Geometry;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class Vector2IntExtensions {
@@ -16,6 +14,6 @@ public static class Vector2IntExtensions {
 
     /* Returns true if x and y of this vector are > 0 and < other*/
     public static bool IsInside(this Vector2Int thisVector, Vector2Int other) {
-        return thisVector.x > 0 && thisVector.y > 0 && thisVector.x < other.x && thisVector.y < other.y;
+        return thisVector.x >= 0 && thisVector.y >= 0 && thisVector.x < other.x && thisVector.y < other.y;
     }
 }
