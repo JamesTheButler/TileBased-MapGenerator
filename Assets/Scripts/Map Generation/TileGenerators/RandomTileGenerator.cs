@@ -13,7 +13,6 @@ public class RandomTileGenerator : BaseTileGenerator {
         if (!IsEnabled) return thisLayer;
         if (propability == 0.0f) return thisLayer;
 
-        UnityEngine.Random.InitState(seed);
         thisLayer = new bool[tileTypeMap.size.x, tileTypeMap.size.y];
         for (int x = 0; x < tileTypeMap.size.x; x++) {
             for (int y = 0; y < tileTypeMap.size.y; y++) {

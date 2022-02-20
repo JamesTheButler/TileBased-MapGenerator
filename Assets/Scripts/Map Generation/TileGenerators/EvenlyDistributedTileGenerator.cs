@@ -8,7 +8,6 @@ using UnityEngine;
 class EvenlyDistributedTileGenerator : BaseTileGenerator {
     public int tileCount;
     public bool useSegmentation;
-    public int quadrantBlockedLimit;
 
     public override bool[,] GenerateTiles(TileTypeMap tileTypeMap) {
         var thisLayer = base.GenerateTiles(tileTypeMap);
@@ -25,22 +24,19 @@ class EvenlyDistributedTileGenerator : BaseTileGenerator {
 
         List<Rect> quadrants = GetQuadrants(tileMapSize, tileCount);
         for (int i = 0; i < tileCount; i++) {
-            int isQuadrantBlockedCounter = 0;
             Vector2Int tilePos;
             if (useSegmentation) {
-                tilePos = new Vector2Int(UnityEngine.Random.Range((int)quadrants[i].position.x, (int)quadrants[i].position.x + (int)quadrants[i].size.x),
-                                         UnityEngine.Random.Range((int)quadrants[i].position.y, (int)quadrants[i].position.y + (int)quadrants[i].size.y));
+                var quadrantMinPosition = quadrants[i].position;
+                var quadrantMaxPosition = quadrants[i].position + quadrants[i].size;
+                tilePos = new Vector2Int((int)Random.Range(quadrantMinPosition.x, quadrantMaxPosition.x),
+                                         (int)Random.Range(quadrantMinPosition.y, quadrantMaxPosition.y));
             } else {
-                tilePos = new Vector2Int(UnityEngine.Random.Range(0, tileMapSize.x), UnityEngine.Random.Range(0, tileMapSize.y));
+                tilePos = new Vector2Int(Random.Range(0, tileMapSize.x), Random.Range(0, tileMapSize.y));
             }
 
-            // avoid positions with blocking tiles
+            // avoid positions with blocking tiles and decrement i 
             if (tileTypeMap.HasAnyTileOnLayers(tilePos.x, tilePos.y, blockingTileTypes)) {
-                //skip quadrant if it is fully blocked
-                if (isQuadrantBlockedCounter <= quadrantBlockedLimit) {
-                    i--;
-                    isQuadrantBlockedCounter++;
-                }
+                i--;
             } else {
                 thisLayer[tilePos.x, tilePos.y] = true;
             }

@@ -34,7 +34,7 @@ public class MapGenerator : MonoBehaviour {
             seed = GenerateSeed();
         }
         Debug.Log("Map Seed: " + seed);
-        UnityEngine.Random.InitState(seed);
+        Random.InitState(seed);
         foreach (var tileGenerator in tileGenerators) {
             if (tileGenerator == null || !tileGenerator.IsEnabled) { continue; }
 
@@ -62,6 +62,6 @@ public class MapGenerator : MonoBehaviour {
     }
 
     private int GenerateSeed() {
-        return UnityEngine.Random.Range(0, 10000);
+        return Random.Range(0, 10000);
     }
 }

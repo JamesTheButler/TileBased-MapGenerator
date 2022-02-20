@@ -28,7 +28,7 @@ public class RandomTileIndexer : BaseTileIndexer {
             for (int y = 0; y < flagMap.GetLength(1); y++) {
                 if (flagMap[x, y]) {
                     var pos = new Vector3Int(x, y, tileLayer);
-                    var tile = tiles[UnityEngine.Random.Range(0, tileCount)];
+                    var tile = tiles[Random.Range(0, tileCount)];
                     tilemap.SetTile(pos, tile);
                 }
             }
