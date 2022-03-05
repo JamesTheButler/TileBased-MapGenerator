@@ -564,7 +564,7 @@ PrefabInstance:
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: neighborRadius
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 22521158471091164, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1360,22 +1360,22 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.x
-      value: 150
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.y
-      value: 150
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: generateRandomSeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: seed
-      value: 6152
+      value: 5864
       objectReference: {fileID: 0}
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1420,7 +1420,7 @@ PrefabInstance:
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileCount
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1430,6 +1430,11 @@ PrefabInstance:
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: useSegmentation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: IsEnabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
@@ -1754,7 +1759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1072104852
 Transform:
   m_ObjectHideFlags: 0
