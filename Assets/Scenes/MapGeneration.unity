@@ -1360,22 +1360,22 @@ PrefabInstance:
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.x
-      value: 40
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: dimensions.y
-      value: 40
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: generateRandomSeed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924521835627351824, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: seed
-      value: 5864
+      value: 5429
       objectReference: {fileID: 0}
     - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1402,6 +1402,16 @@ PrefabInstance:
       propertyPath: IsEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: noiseScale
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925356992655747850, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: heightLevelMin
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: blockingTileTypes.Array.size
@@ -1420,7 +1430,7 @@ PrefabInstance:
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileCount
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1925854878738186718, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
@@ -1457,6 +1467,16 @@ PrefabInstance:
       propertyPath: IsEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: noiseScale
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925871789943166488, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: heightLevelMin
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
       propertyPath: tileType
@@ -1466,6 +1486,16 @@ PrefabInstance:
         type: 3}
       propertyPath: IsEnabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: noiseScale
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926030629083465780, guid: 63a624c5e6acfa742ac18a60cc6b006a,
+        type: 3}
+      propertyPath: heightLevelMax
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1955334510103119796, guid: 63a624c5e6acfa742ac18a60cc6b006a,
         type: 3}
