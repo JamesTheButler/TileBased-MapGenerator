@@ -39,7 +39,7 @@ The towns are randomly placed on the map via the *random grid* algorithm of the 
 To build up the road network, the tile map is processed into a tree that is traversable by an A* algorithm. Each cell in the tile map corrensponds to a node with connections to each non-diagonal neighbor.
 The different terrains are weighted differently. Nodes that represent cells with grassland have low costs, whereas forests and mountains have higher costs. Water is not traversable. This generates more interesting and natural roads. 
 The `TileGenerator` responsible for the road generation finds all possible pairs of neighboring towns and orders them ascendingly by their distance. It then runs through all pairs of neighboring towns and generates a path via A*. It updates its internal representation of the map with the newly added paths. Path tiles are very cheap to travers for all future iterations of the path generation. For all future pairs of towns, the A* algorithm therefore prefers the path tiles wherever possible which generates a network of interconnected roads that feels more natural. If the `TileGenerator` tries to connect two towns that have already been connected it finds the shortes path along previously created roads and does not update the tile map.
-After all neighbors have been connected, the roads are made more visually clear, by removing all terrain tiles that are in cells with road or town tiles. This can be observed in the difference between the seconds and third image in the above figure.
+Finally, a clean up pass removes all terrain sprites on tiles that contain a road. This can be observed in the difference between the seconds and third image in the above figure.
 
 ## 
 
